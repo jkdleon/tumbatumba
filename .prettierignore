@@ -1,0 +1,6 @@
+# Client-owned binaries and generated files
+site/img/
+package-lock.json
+
+# Archived reference implementation — leave formatting as-is
+infra-aws/

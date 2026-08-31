@@ -1,0 +1,35 @@
+# --- Node / tooling (dev-only; the site itself has no build step) ---
+node_modules/
+npm-debug.log*
+
+# --- Vercel ---
+.vercel/
+
+# --- Terraform (archived reference impl in infra-aws/) ---
+infra-aws/.terraform/
+# NOTE: .terraform.lock.hcl is intentionally NOT ignored — commit it so everyone
+# resolves the same provider versions.
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+!*.tfvars.example
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+tfplan
+*.tfplan
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# --- misc ---
+*.log

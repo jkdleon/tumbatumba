@@ -1,0 +1,12 @@
+# Normalise line endings: LF in the repo and in every working copy.
+* text=auto eol=lf
+
+# PowerShell is happiest with CRLF on Windows.
+*.ps1 text eol=crlf
+
+# Binary assets — never touch.
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.ico binary
+*.webp binary

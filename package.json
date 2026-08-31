@@ -1,0 +1,16 @@
+{
+  "name": "tumbatumba-site",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dev tooling for the Aling Nene's Tumba Tumba static site. The site itself has no build step.",
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:html": "html-validate \"site/**/*.html\"",
+    "lint": "npm run format:check && npm run lint:html"
+  },
+  "devDependencies": {
+    "html-validate": "^9.7.1",
+    "prettier": "^3.6.2"
+  }
+}

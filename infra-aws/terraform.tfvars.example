@@ -1,0 +1,18 @@
+# Copy this file to terraform.tfvars and edit.
+#   cp terraform.tfvars.example terraform.tfvars
+#
+# terraform.tfvars is gitignored — it's your local config.
+
+domain_name               = "alingnene.com"
+subject_alternative_names = ["www.alingnene.com"]
+
+# Singapore is the closest region to Manila.
+aws_region = "ap-southeast-1"
+
+# true  = let Terraform create the Route 53 hosted zone (then you paste the
+#         name servers into your registrar).
+# false = you already registered the domain in Route 53 / already have a zone.
+create_route53_zone = true
+
+# PriceClass_200 includes Asia edge locations — good for a Philippine audience.
+price_class = "PriceClass_200"
