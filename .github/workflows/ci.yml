@@ -17,7 +17,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - run: npm ci
@@ -37,8 +37,11 @@ jobs:
       - name: Lychee
         uses: lycheeverse/lychee-action@v2
         with:
+          # --root-dir resolves the site's root-relative links (/css, /img, …)
+          # against site/. Markdown links stay relative to their own file.
           args: >-
             --no-progress
+            --root-dir "${{ github.workspace }}/site"
             --exclude facebook\.com
             "./site/**/*.html"
             "./*.md"
