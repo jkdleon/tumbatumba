@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   format:
-    name: prettier
+    name: format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
