@@ -41,14 +41,14 @@ export const dishes: Dish[] = [
     },
   },
   {
-    id: "lengua",
-    name: "Lengua Asado",
-    blurb: "Ox tongue braised low and slow in a rich brown gravy.",
-    price: "₱200",
+    id: "ulo",
+    name: "Crispy Ulo",
+    blurb: "Whole pork head, seasoned and simmered, then fried the same way as the pata.",
+    price: "₱900",
     image: {
-      src: "/stock/dish-lengua.jpg",
-      alt: "Stock photo: sliced lengua asado in brown gravy on a serving dish.",
-      isStock: true,
+      src: "/photos/dish-ulo.jpg",
+      alt: "A whole crispy ulo (pork head) on a black plate, skin blistered and deep golden-brown.",
+      isStock: false,
     },
   },
   {

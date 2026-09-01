@@ -28,14 +28,15 @@ describe("SignatureDishes", () => {
     for (const cta of ctas) expect(cta).toHaveAttribute("href", "tel:+63285708560");
   });
 
-  it("marks dishes without a real photo as stock, except crispy pata", () => {
+  it("marks each dish's stock status in its rendered alt text, matching the data", () => {
     mount();
     for (const d of dishes) {
       const img = screen.getByRole("img", { name: d.image.alt });
-      if (d.id === "pata") {
-        expect(img.getAttribute("alt") ?? "").not.toMatch(/stock/i);
+      const alt = img.getAttribute("alt") ?? "";
+      if (d.image.isStock) {
+        expect(alt).toMatch(/stock/i);
       } else {
-        expect(img.getAttribute("alt") ?? "").toMatch(/stock/i);
+        expect(alt).not.toMatch(/stock/i);
       }
     }
   });
