@@ -12,7 +12,7 @@ function PendingNote({ label }: { label: string }) {
 
 export function SocialProof() {
   const theme = useTheme();
-  const { tvFeature, vloggers, facebook } = press;
+  const { tvFeature, vloggers, vloggersConfirmed, facebook } = press;
 
   return (
     <section id="press" className={`${theme.layout.sectionPaddingY} bg-surface-2 text-ink`}>
@@ -28,29 +28,40 @@ export function SocialProof() {
         )}
 
         {vloggers.length > 0 ? (
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {vloggers.map((v) => (
-              <li key={v.url}>
-                <a
-                  href={v.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col overflow-hidden rounded-theme border border-ink/10 hover:border-accent"
-                >
-                  <Image
-                    src={v.poster.src}
-                    alt={v.poster.alt}
-                    width={480}
-                    height={270}
-                    className="h-40 w-full object-cover"
-                  />
-                  <span className="p-3 text-sm">
-                    <strong>{v.name}</strong> · {v.platform} ↗
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="grid gap-3">
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {vloggers.map((v) => (
+                <li key={v.url}>
+                  <a
+                    href={v.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-full flex-col overflow-hidden rounded-theme border border-ink/10 hover:border-accent"
+                  >
+                    {v.poster && (
+                      <Image
+                        src={v.poster.src}
+                        alt={v.poster.alt}
+                        width={480}
+                        height={270}
+                        className="h-40 w-full object-cover"
+                      />
+                    )}
+                    <span className="p-3 text-sm">
+                      {v.name ? (
+                        <>
+                          <strong>{v.name}</strong> · {v.platform} ↗
+                        </>
+                      ) : (
+                        <>Watch on {v.platform} ↗</>
+                      )}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            {!vloggersConfirmed && <PendingNote label="Vlogger names and thumbnails" />}
+          </div>
         ) : (
           <PendingNote label="Vlogger features" />
         )}

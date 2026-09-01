@@ -7,7 +7,7 @@ import { formatHours } from "@/lib/openNow";
 
 const HERO_IMAGE = {
   src: "/photos/hero-pata.jpg",
-  alt: "A whole crispy pata fresh from the fryer, skin blistered and deep golden-brown, on a black plate.",
+  alt: "A whole crispy pata fresh from the fryer, skin blistered and deep golden-brown, plated whole.",
 };
 
 export function Hero() {
@@ -61,7 +61,7 @@ export function Hero() {
             src={HERO_IMAGE.src}
             alt={HERO_IMAGE.alt}
             width={1280}
-            height={720}
+            height={960}
             priority
             className="h-auto w-full object-cover"
           />

@@ -2,31 +2,34 @@ import { describe, expect, it } from "vitest";
 import { dishes } from "@/content/dishes";
 
 describe("dishes content", () => {
-  it("has the four signature dishes from the spec", () => {
+  it("has the four signature dishes", () => {
+    // Lengua Asado swapped for Crispy Ulo in the signature strip (still on the
+    // full menu — see content/menu.ts) — both pata and ulo now have real photos.
     expect(dishes.map((d) => d.name)).toEqual([
       "Crispy Pata",
       "Sisig",
-      "Lengua Asado",
+      "Crispy Ulo",
       "Pancit by the Bilao",
     ]);
   });
 
   it("marks dishes without the family's own photo as stock under /stock/", () => {
-    const stillStock = dishes.filter((d) => d.id !== "pata");
-    expect(stillStock).toHaveLength(3); // sisig, lengua, pancit — no real photos yet
+    const stillStock = dishes.filter((d) => d.image.isStock);
+    expect(stillStock.map((d) => d.id)).toEqual(["sisig", "pancit"]);
     for (const d of stillStock) {
-      expect(d.image.isStock).toBe(true);
       expect(d.image.src.startsWith("/stock/")).toBe(true);
       expect(d.image.alt.length).toBeGreaterThan(0);
     }
   });
 
-  it("crispy pata has a real photo, not a stock placeholder", () => {
-    const pata = dishes.find((d) => d.id === "pata")!;
-    expect(pata.image.isStock).toBe(false);
-    expect(pata.image.src).toBe("/photos/dish-pata.jpg");
-    expect(pata.image.alt.length).toBeGreaterThan(0);
-    expect(pata.image.alt).not.toMatch(/stock/i);
+  it("crispy pata and crispy ulo have real photos, not stock placeholders", () => {
+    for (const id of ["pata", "ulo"]) {
+      const dish = dishes.find((d) => d.id === id)!;
+      expect(dish.image.isStock).toBe(false);
+      expect(dish.image.src).toBe(`/photos/dish-${id}.jpg`);
+      expect(dish.image.alt.length).toBeGreaterThan(0);
+      expect(dish.image.alt).not.toMatch(/stock/i);
+    }
   });
 
   it("gives every dish a non-empty factual blurb and a price", () => {

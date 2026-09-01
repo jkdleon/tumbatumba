@@ -8,10 +8,12 @@ export interface TvFeature {
 }
 
 export interface Vlogger {
-  name: string;
+  /** Creator / channel name. Omit until the family confirms who made it. */
+  name?: string;
   url: string;
   platform: string;
-  poster: ImageSlot;
+  /** Link-out card thumbnail (spec §9.4a). Omit for a text-only card. */
+  poster?: ImageSlot;
 }
 
 export interface FacebookProof {
@@ -23,6 +25,8 @@ export interface FacebookProof {
 export interface Press {
   tvFeature: TvFeature;
   vloggers: Vlogger[];
+  /** True once every vlogger has a confirmed creator name (+ ideally a thumbnail). */
+  vloggersConfirmed: boolean;
   facebook: FacebookProof;
 }
 
@@ -39,7 +43,14 @@ export const press: Press = {
     year: "[year]",
     confirmed: false,
   },
-  vloggers: [],
+  vloggers: [
+    // Facebook video posts the family shared. Real creator names + thumbnails
+    // still to come — until then these render as text-only link-out cards.
+    { url: "https://www.facebook.com/share/v/19SK2Senov/", platform: "Facebook" },
+    { url: "https://www.facebook.com/share/v/1F6TFVxkQL/", platform: "Facebook" },
+    { url: "https://www.facebook.com/share/v/1KhYRT4hFG/", platform: "Facebook" },
+  ],
+  vloggersConfirmed: false,
   facebook: {
     ratingLabel: "[rating] on Facebook",
     tagHandle: "@alingnenetumbatumba",
