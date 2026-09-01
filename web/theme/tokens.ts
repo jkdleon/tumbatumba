@@ -5,8 +5,7 @@ export interface ThemeLayout {
   sectionPaddingY: string;
   heroAlign: "center" | "start";
   menuTreatment: "board" | "editorial";
-  /** Short fade/rise on section entry (respect prefers-reduced-motion). */
-  sectionEntryAnimation: boolean;
+  // (Heritage section-entry fade/rise — spec §6 — deferred post-launch)
 }
 
 export interface Theme {

@@ -26,7 +26,10 @@ export function StickyOrderBar() {
         "fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t border-ink-invert/15 bg-ink/95 p-3",
         "backdrop-blur translate-y-0",
         "motion-safe:transition-transform motion-safe:duration-[var(--t-motion-slide)]",
-        revealed ? "md:translate-y-0" : "md:translate-y-full",
+        // Desktop-only: when hidden below the fold, drop it from the tab order and
+        // AT tree too. `md:invisible` scopes this to >=md; mobile (base, no `md:`)
+        // stays visible and interactive since the bar never leaves the screen there.
+        revealed ? "md:translate-y-0" : "md:translate-y-full md:invisible md:pointer-events-none",
       ].join(" ")}
     >
       <a

@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Inter, Fraunces, Newsreader } from "next/font/google";
 import { siteUrl } from "@/lib/siteUrl";
+import { formatHours } from "@/lib/openNow";
+import { restaurant } from "@/content/restaurant";
 import { RestaurantSchema } from "@/components/RestaurantSchema";
 
 export const metadata: Metadata = {
@@ -11,12 +13,11 @@ export const metadata: Metadata = {
     default: "Aling Nene's Tumba Tumba Crispy Pata — Mandaluyong",
     template: "%s · Aling Nene's Tumba Tumba",
   },
-  description:
-    "Crispy pata, sisig, lengua asado, and pancit by the bilao. A family kitchen on General Kalentong Street, Mandaluyong. Open daily 9 AM – 10 PM. Call to order — 8570-8560.",
+  description: `Crispy pata, sisig, lengua asado, and pancit by the bilao. A family kitchen on General Kalentong Street, Mandaluyong. Open daily ${formatHours(restaurant.hours)}. Call to order — ${restaurant.phone.landlineDisplay}.`,
   openGraph: {
     type: "website",
     siteName: "Aling Nene's Tumba Tumba Crispy Pata",
-    images: [{ url: "/logo.jpg", width: 512, height: 512 }],
+    images: [{ url: "/logo.jpg", width: 1080, height: 1080 }],
   },
   twitter: { card: "summary" },
   icons: { icon: "/logo.jpg", apple: "/logo.jpg" },

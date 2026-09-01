@@ -3,7 +3,11 @@ import { LandingPage } from "@/components/LandingPage";
 import { carinderia } from "@/theme/carinderia";
 
 export const metadata: Metadata = {
-  title: "Crispy pata & pancit by the bilao in Mandaluyong",
+  // Root segment: title.template from layout is NOT applied here, so spell out
+  // the brand suffix explicitly.
+  title: {
+    absolute: "Crispy pata & pancit by the bilao in Mandaluyong · Aling Nene's Tumba Tumba",
+  },
   alternates: { canonical: "/" },
 };
 

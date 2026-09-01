@@ -15,11 +15,16 @@ export function Hero() {
   const align = theme.layout.heroAlign === "center" ? "items-center text-center" : "items-start";
   const heroSurface =
     theme.name === "carinderia" ? "bg-canvas text-ink-invert" : "bg-surface-2 text-ink";
+  // text-gold fails AA on heritage's light band (2.29:1); text-accent clears it (7:1).
+  const kickerColor = theme.name === "carinderia" ? "text-gold" : "text-accent";
+  // Ghost CTA: text-accent on the charcoal canvas is 2.44:1 (fails AA). text-gold
+  // is 7.5:1, and border-current follows it. Heritage keeps the default (7:1).
+  const ghostCtaClass = theme.name === "carinderia" ? "text-gold" : "";
 
   return (
     <section id="top" className={`${theme.layout.sectionPaddingY} ${heroSurface}`}>
       <div className={`mx-auto flex w-[min(100%-2.5rem,70rem)] flex-col gap-6 ${align}`}>
-        <p className="font-display text-sm uppercase tracking-widest text-gold">
+        <p className={`font-display text-sm uppercase tracking-widest ${kickerColor}`}>
           {restaurant.shortName.replace(" Tumba Tumba", "")}
         </p>
         <h1 className="font-display text-4xl font-extrabold leading-tight sm:text-6xl">
@@ -36,7 +41,12 @@ export function Hero() {
           <CtaButton href={restaurant.phone.landlineHref}>
             Call to order — {restaurant.phone.landlineDisplay}
           </CtaButton>
-          <CtaButton href={restaurant.socials.messenger} rel="noopener" variant="ghost">
+          <CtaButton
+            href={restaurant.socials.messenger}
+            rel="noopener"
+            variant="ghost"
+            className={ghostCtaClass}
+          >
             Message on Facebook
           </CtaButton>
         </div>

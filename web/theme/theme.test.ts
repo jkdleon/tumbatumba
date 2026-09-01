@@ -75,7 +75,6 @@ describe("theme tokens", () => {
         sectionPaddingY: "py-20",
         heroAlign: "center",
         menuTreatment: "board",
-        sectionEntryAnimation: false,
       },
       motion: "full",
     });
@@ -104,7 +103,6 @@ describe("theme tokens", () => {
         sectionPaddingY: "py-28",
         heroAlign: "start",
         menuTreatment: "editorial",
-        sectionEntryAnimation: true,
       },
       motion: "minimal",
     });

@@ -27,7 +27,6 @@ export const heritage: Theme = {
     sectionPaddingY: "py-28",
     heroAlign: "start",
     menuTreatment: "editorial",
-    sectionEntryAnimation: true,
   },
   motion: "minimal",
 };

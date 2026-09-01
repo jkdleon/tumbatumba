@@ -36,7 +36,7 @@ export function SiteHeader() {
         <nav aria-label="Primary" className="flex items-center gap-4">
           <button
             type="button"
-            className="rounded-theme border border-current px-3 py-2 text-sm text-ink-invert md:hidden"
+            className="min-h-11 rounded-theme border border-current px-3 py-2 text-sm text-ink-invert md:hidden"
             aria-expanded={open}
             aria-controls="site-nav"
             aria-label={open ? "Close menu" : "Menu"}

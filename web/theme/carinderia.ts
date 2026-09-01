@@ -27,7 +27,6 @@ export const carinderia: Theme = {
     sectionPaddingY: "py-20",
     heroAlign: "center",
     menuTreatment: "board",
-    sectionEntryAnimation: false,
   },
   motion: "full",
 };
