@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* Map Tailwind utility namespaces to the CSS custom properties that
+   <ThemeProvider> sets on its wrapper. `inline` keeps the generated
+   utilities referencing var(--t-*) so a runtime theme swap reskins
+   everything. The --t-* fallbacks below are the Carinderia values, so
+   the page still renders correctly before a provider mounts. */
+@theme inline {
+  --color-canvas: var(--t-canvas);
+  --color-surface-1: var(--t-surface-1);
+  --color-surface-2: var(--t-surface-2);
+  --color-ink: var(--t-ink);
+  --color-ink-invert: var(--t-ink-invert);
+  --color-accent: var(--t-accent);
+  --color-accent-strong: var(--t-accent-strong);
+  --color-gold: var(--t-gold);
+  --color-sage: var(--t-sage);
+  --font-display: var(--t-font-display);
+  --font-body: var(--t-font-body);
+  --radius-theme: var(--t-radius);
+}
+
+@layer base {
+  :root {
+    --t-canvas: #1a1512;
+    --t-surface-1: #f6e7db;
+    --t-surface-2: #fbf3e3;
+    --t-ink: #241c15;
+    --t-ink-invert: #fbf3e3;
+    --t-accent: #a5211a;
+    --t-accent-strong: #d7382a;
+    --t-gold: #e0983f;
+    --t-sage: #93ab72;
+    --t-font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+    --t-font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --t-radius: 0.5rem;
+    --t-motion-fast: 150ms;
+    --t-motion-slide: 320ms;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
