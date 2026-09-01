@@ -6,8 +6,8 @@ import { OpenNowBadge } from "@/components/OpenNowBadge";
 import { formatHours } from "@/lib/openNow";
 
 const HERO_IMAGE = {
-  src: "/stock/hero-pata.jpg",
-  alt: "Stock photo (placeholder — swap for the family's own): a whole crispy pata, skin blistered and golden, on a white platter.",
+  src: "/photos/hero-pata.jpg",
+  alt: "A whole crispy pata fresh from the fryer, skin blistered and deep golden-brown, on a black plate.",
 };
 
 export function Hero() {
@@ -60,14 +60,11 @@ export function Hero() {
           <Image
             src={HERO_IMAGE.src}
             alt={HERO_IMAGE.alt}
-            width={1600}
-            height={900}
+            width={1280}
+            height={720}
             priority
             className="h-auto w-full object-cover"
           />
-          <figcaption className="absolute left-2 top-2 rounded bg-ink/70 px-2 py-1 text-xs text-ink-invert">
-            stock photo — replace before launch
-          </figcaption>
         </figure>
       </div>
 

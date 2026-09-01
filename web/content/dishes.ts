@@ -24,9 +24,9 @@ export const dishes: Dish[] = [
     blurb: "Whole pork leg, scored and simmered, then fried until the skin blisters and cracks.",
     price: "₱870 XL · ₱900 Jumbo",
     image: {
-      src: "/stock/dish-pata.jpg",
-      alt: "Stock photo: a whole crispy pata on a platter beside a dish of vinegar.",
-      isStock: true,
+      src: "/photos/dish-pata.jpg",
+      alt: "A whole crispy pata on a black plate, skin blistered and deep golden-brown.",
+      isStock: false,
     },
   },
   {

@@ -41,9 +41,15 @@ describe("Hero", () => {
     expect(screen.getByText(/Open now|Closed/)).toBeInTheDocument();
   });
 
-  it("renders the sticky-bar sentinel and marks the stock photo", () => {
+  it("renders the sticky-bar sentinel", () => {
     const { container } = mount();
     expect(container.querySelector("#hero-end")).toBeTruthy();
-    expect(screen.getByRole("img")).toHaveAttribute("alt", expect.stringMatching(/stock/i));
+  });
+
+  it("renders the real hero photo (no longer a stock placeholder)", () => {
+    mount();
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", expect.stringContaining("/photos/hero-pata.jpg"));
+    expect(img.getAttribute("alt") ?? "").not.toMatch(/stock/i);
   });
 });
