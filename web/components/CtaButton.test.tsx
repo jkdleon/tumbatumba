@@ -11,7 +11,7 @@ describe("CtaButton", () => {
 
   it("defaults to the solid variant", () => {
     render(<CtaButton href="#menu">See the menu</CtaButton>);
-    expect(screen.getByRole("link", { name: "See the menu" }).className).toContain("bg-accent");
+    expect(screen.getByRole("link", { name: "See the menu" }).className).toContain("text-ink-invert");
   });
 
   it("renders a ghost variant without a solid fill", () => {
