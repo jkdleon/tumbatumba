@@ -4,3 +4,7 @@ package-lock.json
 
 # Archived reference implementation — leave formatting as-is
 infra-aws/
+
+# Next.js build output
+web/.next/
+web/out/
