@@ -17,7 +17,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@rollup/wasm-node": "^4.63.1",
+    "@rollup/wasm-node": "4.63.1",
     "@tailwindcss/postcss": "^4.0.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
