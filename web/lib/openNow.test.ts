@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { openNow, type Hours } from "@/lib/openNow";
+import { formatHours, openNow, type Hours } from "@/lib/openNow";
 
 const HOURS: Hours = { open: "09:00", close: "22:00", tz: "Asia/Manila", days: "daily" };
 
@@ -31,5 +31,9 @@ describe("openNow", () => {
     // 20:00 UTC would be "open" in UTC but is 04:00 next day in Manila → closed
     const r = openNow(HOURS, new Date("2026-09-01T20:00:00Z"));
     expect(r.open).toBe(false);
+  });
+
+  it("formats the open hours as a human range", () => {
+    expect(formatHours({ open: "09:00", close: "22:00" })).toBe("9 AM – 10 PM");
   });
 });

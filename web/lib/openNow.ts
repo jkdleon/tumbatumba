@@ -50,3 +50,8 @@ export function openNow(hours: Hours, now: Date): OpenNowResult {
     ? { open: true, label: `Open now · closes ${formatClock(closeAt)}` }
     : { open: false, label: `Closed · opens ${formatClock(openAt)}` };
 }
+
+/** "9 AM – 10 PM" style range from an hours config. */
+export function formatHours(hours: Pick<Hours, "open" | "close">): string {
+  return `${formatClock(toMinutes(hours.open))} – ${formatClock(toMinutes(hours.close))}`;
+}

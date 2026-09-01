@@ -3,6 +3,7 @@ import { restaurant } from "@/content/restaurant";
 import { useTheme } from "@/components/ThemeProvider";
 import { CtaButton } from "@/components/CtaButton";
 import { OpenNowBadge } from "@/components/OpenNowBadge";
+import { formatHours } from "@/lib/openNow";
 
 const HERO_IMAGE = {
   src: "/stock/hero-pata.jpg",
@@ -41,7 +42,7 @@ export function Hero() {
 
         <p className="text-sm opacity-80">
           {restaurant.address.street}, {restaurant.address.locality} · Open{" "}
-          {restaurant.hours.days}, 9 AM – 10 PM
+          {restaurant.hours.days}, {formatHours(restaurant.hours)}
         </p>
 
         <figure className="relative mt-4 w-full overflow-hidden rounded-theme">
