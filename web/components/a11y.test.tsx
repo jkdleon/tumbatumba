@@ -63,6 +63,11 @@ describe.each([
  * jsdom cannot compute rendered contrast, so this is a structural guard: it
  * asserts the class swap is present and the offending `bg-canvas` utility is
  * gone from the header/footer.
+ *
+ * The Hero band is the mirror case: `canvas` is DARK under carinderia (its
+ * intended loud, appetite-first treatment) but bone under heritage, so the
+ * hero is theme-aware — `bg-canvas text-ink-invert` for carinderia,
+ * `bg-surface-2 text-ink` (light editorial band) for heritage. Locked below.
  */
 describe("Heritage chrome contrast — structural regression lock", () => {
   it("header and footer use bg-ink, never bg-canvas, under Heritage", () => {
@@ -78,5 +83,20 @@ describe("Heritage chrome contrast — structural regression lock", () => {
 
     expect(footer!.className).toContain("bg-ink");
     expect(footer!.className).not.toContain("bg-canvas");
+  });
+
+  it("the Hero band is a light surface under Heritage and stays bg-canvas under Carinderia", () => {
+    const heritageHero = render(<LandingPage theme={heritage} />).container.querySelector(
+      "section#top",
+    );
+    expect(heritageHero).toBeTruthy();
+    expect(heritageHero!.className).toContain("bg-surface-2");
+    expect(heritageHero!.className).not.toContain("bg-canvas");
+
+    const carinderiaHero = render(<LandingPage theme={carinderia} />).container.querySelector(
+      "section#top",
+    );
+    expect(carinderiaHero).toBeTruthy();
+    expect(carinderiaHero!.className).toContain("bg-canvas");
   });
 });

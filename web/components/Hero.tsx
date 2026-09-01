@@ -14,9 +14,11 @@ export function Hero() {
   const theme = useTheme();
   const align =
     theme.layout.heroAlign === "center" ? "items-center text-center" : "items-start";
+  const heroSurface =
+    theme.name === "carinderia" ? "bg-canvas text-ink-invert" : "bg-surface-2 text-ink";
 
   return (
-    <section id="top" className={`${theme.layout.sectionPaddingY} bg-canvas text-ink-invert`}>
+    <section id="top" className={`${theme.layout.sectionPaddingY} ${heroSurface}`}>
       <div className={`mx-auto flex w-[min(100%-2.5rem,70rem)] flex-col gap-6 ${align}`}>
         <p className="font-display text-sm uppercase tracking-widest text-gold">
           {restaurant.shortName.replace(" Tumba Tumba", "")}

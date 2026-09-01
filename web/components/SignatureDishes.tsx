@@ -9,7 +9,9 @@ function DishCard({ dish, lift }: { dish: Dish; lift: boolean }) {
     <article
       className={
         "flex flex-col overflow-hidden rounded-theme border border-ink/10 bg-surface-2 text-ink " +
-        (lift ? "transition-transform duration-[var(--t-motion-fast)] hover:-translate-y-1" : "")
+        (lift
+          ? "motion-safe:transition-transform motion-safe:duration-[var(--t-motion-fast)] motion-safe:hover:-translate-y-1"
+          : "")
       }
     >
       <Image
