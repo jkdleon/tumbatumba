@@ -77,6 +77,42 @@ When `alingnene.com` is registered:
    `site/sitemap.xml`, `site/robots.txt`, and the `og:url` / JSON-LD `url` in
    `site/index.html`.
 
+## Staging (redesign)
+
+The `redesign` branch adds a second, independent site under `web/` (Next.js,
+static export). Vercel's "root directory" is a **project-level** setting, so we
+preview it as a **separate Vercel project** — the production project is never
+touched until cutover (spec §4.4).
+
+### One-time setup (James)
+
+1. Vercel dashboard → **Add New… → Project** → import the same GitHub repo
+   (`aling-nenes`).
+2. **Project Name:** `aling-nene-staging`.
+3. **Framework Preset:** Next.js.
+4. **Root Directory:** `web` (click _Edit_ → select `web`).
+5. **Build & Output:** leave defaults (`next build`; output auto-detected).
+   Do **not** set a "no build command" override — that is a production-only relic.
+6. **Environment Variables:** add `NEXT_PUBLIC_SITE_URL` =
+   `https://<the-staging-domain-vercel-gives-you>` (used for canonical/OG URLs).
+7. **Settings → Git → Production Branch:** set to `redesign`.
+8. Deploy. The staging URL then serves:
+   - `/` → "Carinderia heat"
+   - `/heritage` → "Heritage kitchen"
+
+### Day-to-day
+
+- Every push to `redesign` redeploys staging automatically.
+- PRs into `redesign` get Vercel preview URLs.
+- The production project (root `site/`, no build) is unaffected.
+
+### After James picks a direction
+
+Cutover is spec §4.4 — a separate task. In short: delete the losing route +
+its `theme/*.ts`, promote the winner to `/`, repoint the **production** Vercel
+project's root directory to `web/`, port headers, regenerate robots/sitemap,
+update CI, then delete this staging project.
+
 ## What is _not_ used
 
 `infra-aws/` (Terraform for S3 + CloudFront + Route 53) and its
