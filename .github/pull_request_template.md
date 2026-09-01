@@ -14,7 +14,7 @@
 - [ ] Content that came from the family is quoted, not paraphrased or invented
 - [ ] Menu prices / phone numbers / hours match the source if touched
 - [ ] Looks right on a phone width (~375px) and desktop
-- [ ] No new console errors; `prettier` + `html-validate` pass (CI green)
+- [ ] No new console errors; `prettier` passes and the web app's `tsc` / `lint` / `test` / `build` pass (CI green)
 
 ## Notes for the reviewer
 

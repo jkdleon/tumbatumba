@@ -2,15 +2,13 @@
   "name": "tumbatumba-site",
   "version": "0.0.0",
   "private": true,
-  "description": "Dev tooling for the Aling Nene's Tumba Tumba static site. The site itself has no build step.",
+  "description": "Repo-root dev tooling (Prettier) for the Aling Nene's Tumba Tumba site. The site itself lives in web/ (Next.js static export).",
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint:html": "html-validate \"site/**/*.html\"",
-    "lint": "npm run format:check && npm run lint:html"
+    "lint": "npm run format:check"
   },
   "devDependencies": {
-    "html-validate": "^9.7.1",
     "prettier": "^3.6.2"
   }
 }
