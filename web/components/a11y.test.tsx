@@ -42,9 +42,7 @@ describe.each([
 
   it("heading levels never skip (h1 → h2 → h3 only)", () => {
     const { container } = render(<LandingPage theme={theme} />);
-    const levels = [...container.querySelectorAll("h1,h2,h3,h4")].map((h) =>
-      Number(h.tagName[1]),
-    );
+    const levels = [...container.querySelectorAll("h1,h2,h3,h4")].map((h) => Number(h.tagName[1]));
     for (let i = 1; i < levels.length; i++) {
       expect(levels[i] - Math.max(...levels.slice(0, i))).toBeLessThanOrEqual(1);
     }

@@ -13,7 +13,10 @@ describe("OpenNowBadge", () => {
     vi.setSystemTime(new Date("2026-09-01T05:00:00Z")); // 13:00 Manila
     render(<OpenNowBadge hours={HOURS} />);
     expect(screen.getByText(/Open now · closes 10 PM/)).toBeInTheDocument();
-    expect(screen.getByText(/Open now/).closest("[data-open]")).toHaveAttribute("data-open", "true");
+    expect(screen.getByText(/Open now/).closest("[data-open]")).toHaveAttribute(
+      "data-open",
+      "true",
+    );
   });
 
   it("shows the closed label when closed in Manila", () => {

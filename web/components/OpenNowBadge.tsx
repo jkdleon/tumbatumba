@@ -25,8 +25,7 @@ export function OpenNowBadge({ hours, className = "" }: { hours: Hours; classNam
       <span
         aria-hidden="true"
         className={
-          "h-2 w-2 rounded-full " +
-          (state.open ? "bg-sage motion-safe:animate-pulse" : "bg-ink/40")
+          "h-2 w-2 rounded-full " + (state.open ? "bg-sage motion-safe:animate-pulse" : "bg-ink/40")
         }
       />
       {state.label}

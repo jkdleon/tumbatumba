@@ -16,7 +16,9 @@ function mount() {
 describe("OurStory", () => {
   it("renders every story paragraph", () => {
     mount();
-    expect(screen.getByText(/Aling Nene started cooking for the neighbourhood/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Aling Nene started cooking for the neighbourhood/),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Today the kitchen is run by/)).toBeInTheDocument();
   });
 

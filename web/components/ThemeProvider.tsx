@@ -24,7 +24,11 @@ export function ThemeProvider({ theme, children }: { theme: Theme; children: Rea
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div data-theme={theme.name} className="theme-root bg-canvas text-ink font-body" style={style}>
+      <div
+        data-theme={theme.name}
+        className="theme-root bg-canvas text-ink font-body"
+        style={style}
+      >
         {children}
       </div>
     </ThemeContext.Provider>

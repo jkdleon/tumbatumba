@@ -20,7 +20,9 @@ describe("SocialProof", () => {
 
   it("flags the unconfirmed press content instead of inventing it", () => {
     mount();
-    expect(screen.getAllByText(/pending|content pending|to be supplied/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/pending|content pending|to be supplied/i).length).toBeGreaterThan(
+      0,
+    );
   });
 
   it("renders no iframes (link-out only, spec §9.4a)", () => {

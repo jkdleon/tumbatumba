@@ -34,7 +34,10 @@ describe("MenuBoard", () => {
 
   it("links the printed menu photo", () => {
     mount();
-    expect(screen.getByRole("link", { name: /printed menu/i })).toHaveAttribute("href", "/menu.jpg");
+    expect(screen.getByRole("link", { name: /printed menu/i })).toHaveAttribute(
+      "href",
+      "/menu.jpg",
+    );
   });
 
   it("renders under both menu treatments without error", () => {
