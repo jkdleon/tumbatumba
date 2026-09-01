@@ -13,6 +13,9 @@ describe("story content", () => {
   it("keeps the bracketed placeholder markers in the copy", () => {
     const joined = story.paragraphs.join("\n");
     expect(joined).toContain("[Placeholder");
+    expect(joined).toContain("[the rocking chair / the story you'll tell us]");
+    expect(joined).toContain("[or however many]");
     expect(joined).toContain("[names, roles]");
+    expect(joined).toContain("—"); // em-dash must not be downgraded to a hyphen
   });
 });
