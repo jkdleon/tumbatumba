@@ -23,7 +23,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/10 bg-canvas/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-ink-invert/15 bg-ink/90 backdrop-blur">
       <div className="mx-auto flex w-[min(100%-2.5rem,70rem)] items-center justify-between gap-4 py-3">
         <a href="#top" className="flex items-center gap-3" aria-label={`${restaurant.name} — home`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -39,6 +39,7 @@ export function SiteHeader() {
             className="rounded-theme border border-current px-3 py-2 text-sm text-ink-invert md:hidden"
             aria-expanded={open}
             aria-controls="site-nav"
+            aria-label={open ? "Close menu" : "Menu"}
             onClick={() => setOpen((v) => !v)}
           >
             Menu
@@ -47,7 +48,7 @@ export function SiteHeader() {
           <ul
             id="site-nav"
             className={
-              "absolute inset-x-0 top-full flex-col gap-1 border-b border-ink/10 bg-canvas p-4 " +
+              "absolute inset-x-0 top-full flex-col gap-1 border-b border-ink-invert/15 bg-ink p-4 " +
               "md:static md:flex md:flex-row md:items-center md:gap-5 md:border-0 md:bg-transparent md:p-0 " +
               (open ? "flex" : "hidden md:flex")
             }

@@ -5,7 +5,7 @@ export function SiteFooter() {
   const { address } = restaurant;
 
   return (
-    <footer className="border-t border-ink/10 bg-canvas py-12 text-center text-ink-invert">
+    <footer className="border-t border-ink-invert/15 bg-ink py-12 text-center text-ink-invert">
       <div className="mx-auto w-[min(100%-2.5rem,70rem)] space-y-2">
         <p className="font-display text-lg font-bold">{restaurant.name}</p>
         <p className="text-sm opacity-90">

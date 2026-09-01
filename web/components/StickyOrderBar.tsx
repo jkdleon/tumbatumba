@@ -23,7 +23,7 @@ export function StickyOrderBar() {
   return (
     <div
       className={[
-        "fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t border-ink/10 bg-canvas/95 p-3",
+        "fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t border-ink-invert/15 bg-ink/95 p-3",
         "backdrop-blur translate-y-0",
         "motion-safe:transition-transform motion-safe:duration-[var(--t-motion-slide)]",
         revealed ? "md:translate-y-0" : "md:translate-y-full",
