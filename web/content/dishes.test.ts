@@ -11,12 +11,22 @@ describe("dishes content", () => {
     ]);
   });
 
-  it("marks every image as stock under /stock/", () => {
-    for (const d of dishes) {
+  it("marks dishes without the family's own photo as stock under /stock/", () => {
+    const stillStock = dishes.filter((d) => d.id !== "pata");
+    expect(stillStock).toHaveLength(3); // sisig, lengua, pancit — no real photos yet
+    for (const d of stillStock) {
       expect(d.image.isStock).toBe(true);
       expect(d.image.src.startsWith("/stock/")).toBe(true);
       expect(d.image.alt.length).toBeGreaterThan(0);
     }
+  });
+
+  it("crispy pata has a real photo, not a stock placeholder", () => {
+    const pata = dishes.find((d) => d.id === "pata")!;
+    expect(pata.image.isStock).toBe(false);
+    expect(pata.image.src).toBe("/photos/dish-pata.jpg");
+    expect(pata.image.alt.length).toBeGreaterThan(0);
+    expect(pata.image.alt).not.toMatch(/stock/i);
   });
 
   it("gives every dish a non-empty factual blurb and a price", () => {
