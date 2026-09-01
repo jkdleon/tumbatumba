@@ -2,8 +2,9 @@
 // Run non-strict in CI as a visible reminder; run --strict in the pre-launch gate.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const OUT_DIR = new URL("../out/", import.meta.url).pathname;
+const OUT_DIR = fileURLToPath(new URL("../out/", import.meta.url));
 const strict = process.argv.includes("--strict");
 
 function walk(dir) {
