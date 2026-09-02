@@ -14,13 +14,15 @@ function DishCard({ dish, lift }: { dish: Dish; lift: boolean }) {
           : "")
       }
     >
-      <Image
-        src={dish.image.src}
-        alt={dish.image.alt}
-        width={640}
-        height={480}
-        className="h-44 w-full object-cover"
-      />
+      <div className="relative aspect-[4/3] w-full bg-surface-1">
+        <Image
+          src={dish.image.src}
+          alt={dish.image.alt}
+          fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className="object-contain"
+        />
+      </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <h3 className="font-display text-xl font-bold">{dish.name}</h3>
         <p className="flex-1 text-sm text-ink/80">{dish.blurb}</p>
