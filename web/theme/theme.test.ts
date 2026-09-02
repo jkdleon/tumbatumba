@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { carinderia } from "@/theme/carinderia";
+import { kusina } from "@/theme/kusina";
 import { heritage } from "@/theme/heritage";
 import type { Theme } from "@/theme/tokens";
 
@@ -27,9 +27,9 @@ function check(theme: Theme) {
 }
 
 describe("theme tokens", () => {
-  it("carinderia defines every required CSS var and identifies itself", () => {
-    expect(carinderia.name).toBe("carinderia");
-    check(carinderia);
+  it("kusina defines every required CSS var and identifies itself", () => {
+    expect(kusina.name).toBe("kusina");
+    check(kusina);
   });
 
   it("heritage defines every required CSS var and identifies itself", () => {
@@ -38,23 +38,23 @@ describe("theme tokens", () => {
   });
 
   it("both derive their accent from the existing menu brick token", () => {
-    expect(carinderia.cssVars.accent).toBe("#a5211a");
+    expect(kusina.cssVars.accent).toBe("#a5211a");
     expect(heritage.cssVars.accent).toBe("#a5211a");
   });
 
-  it("carinderia runs full motion, heritage minimal", () => {
-    expect(carinderia.motion).toBe("full");
+  it("kusina runs full motion, heritage minimal", () => {
+    expect(kusina.motion).toBe("full");
     expect(heritage.motion).toBe("minimal");
   });
 
-  it("carinderia uses the board menu treatment, heritage editorial", () => {
-    expect(carinderia.layout.menuTreatment).toBe("board");
+  it("kusina uses the board menu treatment, heritage editorial", () => {
+    expect(kusina.layout.menuTreatment).toBe("board");
     expect(heritage.layout.menuTreatment).toBe("editorial");
   });
 
-  it("carinderia matches the full spec-§6 token set exactly", () => {
-    expect(carinderia).toEqual({
-      name: "carinderia",
+  it("kusina matches the full spec-§6 token set exactly", () => {
+    expect(kusina).toEqual({
+      name: "kusina",
       cssVars: {
         canvas: "#1a1512",
         "surface-1": "#f6e7db",

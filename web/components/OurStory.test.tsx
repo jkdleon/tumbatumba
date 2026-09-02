@@ -2,12 +2,12 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { OurStory } from "@/components/OurStory";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { carinderia } from "@/theme/carinderia";
+import { kusina } from "@/theme/kusina";
 import { story } from "@/content/story";
 
 function mount() {
   return render(
-    <ThemeProvider theme={carinderia}>
+    <ThemeProvider theme={kusina}>
       <OurStory />
     </ThemeProvider>,
   );

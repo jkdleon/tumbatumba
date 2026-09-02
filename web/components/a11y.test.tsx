@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render } from "@testing-library/react";
 import { LandingPage } from "@/components/LandingPage";
-import { carinderia } from "@/theme/carinderia";
+import { kusina } from "@/theme/kusina";
 import { heritage } from "@/theme/heritage";
 
 beforeEach(() => {
@@ -22,7 +22,7 @@ afterEach(() => {
 });
 
 describe.each([
-  ["carinderia", carinderia],
+  ["kusina", kusina],
   ["heritage", heritage],
 ])("a11y smoke — %s", (_n, theme) => {
   it("has one h1, and landmark header/main/footer", () => {
@@ -62,9 +62,9 @@ describe.each([
  * asserts the class swap is present and the offending `bg-canvas` utility is
  * gone from the header/footer.
  *
- * The Hero band is the mirror case: `canvas` is DARK under carinderia (its
+ * The Hero band is the mirror case: `canvas` is DARK under kusina (its
  * intended loud, appetite-first treatment) but bone under heritage, so the
- * hero is theme-aware — `bg-canvas text-ink-invert` for carinderia,
+ * hero is theme-aware — `bg-canvas text-ink-invert` for kusina,
  * `bg-surface-2 text-ink` (light editorial band) for heritage. Locked below.
  */
 describe("Heritage chrome contrast — structural regression lock", () => {
@@ -83,7 +83,7 @@ describe("Heritage chrome contrast — structural regression lock", () => {
     expect(footer!.className).not.toContain("bg-canvas");
   });
 
-  it("the Hero band is a light surface under Heritage and stays bg-canvas under Carinderia", () => {
+  it("the Hero band is a light surface under Heritage and stays bg-canvas under Kusina", () => {
     const heritageHero = render(<LandingPage theme={heritage} />).container.querySelector(
       "section#top",
     );
@@ -91,10 +91,10 @@ describe("Heritage chrome contrast — structural regression lock", () => {
     expect(heritageHero!.className).toContain("bg-surface-2");
     expect(heritageHero!.className).not.toContain("bg-canvas");
 
-    const carinderiaHero = render(<LandingPage theme={carinderia} />).container.querySelector(
+    const kusinaHero = render(<LandingPage theme={kusina} />).container.querySelector(
       "section#top",
     );
-    expect(carinderiaHero).toBeTruthy();
-    expect(carinderiaHero!.className).toContain("bg-canvas");
+    expect(kusinaHero).toBeTruthy();
+    expect(kusinaHero!.className).toContain("bg-canvas");
   });
 });

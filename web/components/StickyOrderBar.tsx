@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { restaurant } from "@/content/restaurant";
+import { ordering } from "@/content/ordering";
+import { orderCta } from "@/lib/ordering";
 
 export function StickyOrderBar() {
   const [revealed, setRevealed] = useState(false);
+  const cta = orderCta(ordering, restaurant.phone.landlineHref, restaurant.phone.landlineDisplay);
 
   useEffect(() => {
     const sentinel = document.getElementById("hero-end");
@@ -33,10 +36,11 @@ export function StickyOrderBar() {
       ].join(" ")}
     >
       <a
-        href={restaurant.phone.landlineHref}
+        href={cta.href}
+        {...(cta.external ? { rel: "noopener" } : {})}
         className="flex-1 rounded-theme bg-accent px-4 py-3 text-center font-semibold text-ink-invert hover:bg-accent-strong"
       >
-        Call to order — {restaurant.phone.landlineDisplay}
+        {cta.labelShort}
       </a>
       <a
         href={restaurant.socials.messenger}

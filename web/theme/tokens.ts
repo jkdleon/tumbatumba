@@ -1,4 +1,4 @@
-export type ThemeName = "carinderia" | "heritage";
+export type ThemeName = "kusina" | "heritage";
 
 export interface ThemeLayout {
   /** Tailwind class for vertical section rhythm, e.g. "py-20". */

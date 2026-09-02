@@ -97,7 +97,7 @@ touched until cutover (spec §4.4).
    `https://<the-staging-domain-vercel-gives-you>` (used for canonical/OG URLs).
 7. **Settings → Git → Production Branch:** set to `redesign`.
 8. Deploy. The staging URL then serves:
-   - `/` → "Carinderia heat"
+   - `/` → "Kusina"
    - `/heritage` → "Heritage kitchen"
 
 ### Day-to-day

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { LandingPage } from "@/components/LandingPage";
-import { carinderia } from "@/theme/carinderia";
+import { kusina } from "@/theme/kusina";
 import { heritage } from "@/theme/heritage";
 
 beforeEach(() => {
@@ -22,7 +22,7 @@ afterEach(() => {
 });
 
 describe.each([
-  ["carinderia", carinderia],
+  ["kusina", kusina],
   ["heritage", heritage],
 ])("LandingPage — %s theme", (_name, theme) => {
   it("renders every section in order", () => {

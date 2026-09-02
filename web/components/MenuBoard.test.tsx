@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MenuBoard } from "@/components/MenuBoard";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { carinderia } from "@/theme/carinderia";
+import { kusina } from "@/theme/kusina";
 import { heritage } from "@/theme/heritage";
 
-function mount(theme = carinderia) {
+function mount(theme = kusina) {
   return render(
     <ThemeProvider theme={theme}>
       <MenuBoard />

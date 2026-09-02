@@ -2,12 +2,12 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { SignatureDishes } from "@/components/SignatureDishes";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { carinderia } from "@/theme/carinderia";
+import { kusina } from "@/theme/kusina";
 import { dishes } from "@/content/dishes";
 
 function mount() {
   return render(
-    <ThemeProvider theme={carinderia}>
+    <ThemeProvider theme={kusina}>
       <SignatureDishes />
     </ThemeProvider>,
   );

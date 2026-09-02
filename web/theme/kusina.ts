@@ -1,12 +1,18 @@
 import type { Theme } from "@/theme/tokens";
 
 /**
- * "Carinderia heat" (route "/"): warm, loud, appetite-first — a busy Manila
- * eatery at night. Palette is the existing menu/logo tokens inverted onto a
- * warm-charcoal ground.
+ * "Kusina" (route "/"): warm and appetite-first — the food shot on a dark
+ * ground so the fried skin carries the page. Palette is the existing
+ * menu/logo tokens inverted onto a warm-charcoal ground.
+ *
+ * Renamed from "carinderia" 2026-09-02: the family confirmed this is a
+ * restaurant with a supplier, a chiller and a reservation book, not a
+ * carinderia, and the theme name was reading as a positioning claim.
+ * Token VALUES are unchanged — they came from the client's printed menu and
+ * logo and are pinned by docs/superpowers/specs/2026-09-01-*-design.md.
  */
-export const carinderia: Theme = {
-  name: "carinderia",
+export const kusina: Theme = {
+  name: "kusina",
   cssVars: {
     canvas: "#1a1512", // warm charcoal
     "surface-1": "#f6e7db", // existing --paper (blush)

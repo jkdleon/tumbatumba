@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LandingPage } from "@/components/LandingPage";
-import { carinderia } from "@/theme/carinderia";
+import { kusina } from "@/theme/kusina";
 
 export const metadata: Metadata = {
   // Root segment: title.template from layout is NOT applied here, so spell out
@@ -12,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <LandingPage theme={carinderia} />;
+  return <LandingPage theme={kusina} />;
 }

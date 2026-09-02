@@ -1,11 +1,14 @@
 import { restaurant } from "@/content/restaurant";
+import { ordering } from "@/content/ordering";
 import { useTheme } from "@/components/ThemeProvider";
 import { CtaButton } from "@/components/CtaButton";
 import { formatHours } from "@/lib/openNow";
+import { orderCta } from "@/lib/ordering";
 
 export function VisitOrder() {
   const theme = useTheme();
   const { address, phone, gcash, socials, hours } = restaurant;
+  const cta = orderCta(ordering, phone.landlineHref, phone.landlineDisplay);
 
   return (
     <section id="visit" className={`${theme.layout.sectionPaddingY} bg-surface-2 text-ink`}>
@@ -36,7 +39,9 @@ export function VisitOrder() {
 
         <div className="space-y-4">
           <h3 className="font-display text-xl font-bold">Reservations &amp; orders</h3>
-          <p className="text-sm text-ink/80">{restaurant.reservationNote}</p>
+          <p className="text-sm text-ink/80">
+            {cta.external ? ordering.note : restaurant.reservationNote}
+          </p>
           <ul className="space-y-2 text-sm">
             <li>
               <span className="inline-block w-20 font-semibold">Landline</span>
@@ -62,7 +67,9 @@ export function VisitOrder() {
             </li>
           </ul>
           <div className="flex flex-wrap gap-3 pt-2">
-            <CtaButton href={phone.landlineHref}>Call to order</CtaButton>
+            <CtaButton href={cta.href} {...(cta.external ? { rel: "noopener" } : {})}>
+              {cta.external ? ordering.label : "Call to order"}
+            </CtaButton>
             <CtaButton href={socials.messenger} rel="noopener" variant="ghost">
               Message on Facebook
             </CtaButton>

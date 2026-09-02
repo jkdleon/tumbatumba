@@ -5,7 +5,7 @@ A static **Next.js** app (App Router, `output: 'export'` — no server runtime),
 deployed on **Vercel** from this repo.
 
 Two visual directions are built from one shared component set and switched by
-route: `/` ("Carinderia heat") and `/heritage` ("Heritage kitchen"). Each is a
+route: `/` ("Kusina") and `/heritage` ("Heritage kitchen"). Each is a
 _theme_ — a `web/theme/*.ts` token object applied as CSS variables — so swapping
 the object reskins every component.
 
@@ -23,7 +23,7 @@ tumbatumba/
 │   ├── app/                routes: / , /heritage , robots.ts , sitemap.ts
 │   ├── components/         shared UI (themed via <ThemeProvider>)
 │   ├── content/            all business data (menu, dishes, restaurant, press, story)
-│   ├── theme/              carinderia.ts / heritage.ts token objects
+│   ├── theme/              kusina.ts / heritage.ts token objects
 │   ├── public/photos/      real photos
 │   ├── public/stock/       remaining placeholder images — DO NOT SHIP
 │   └── vercel.json         security headers / caching (applied by Vercel)

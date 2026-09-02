@@ -3,7 +3,7 @@
 /* Map Tailwind utility namespaces to the CSS custom properties that
    <ThemeProvider> sets on its wrapper. `inline` keeps the generated
    utilities referencing var(--t-*) so a runtime theme swap reskins
-   everything. The --t-* fallbacks below are the Carinderia values, so
+   everything. The --t-* fallbacks below are the Kusina values, so
    the page still renders correctly before a provider mounts. */
 @theme inline {
   --color-canvas: var(--t-canvas);

@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { restaurant } from "@/content/restaurant";
+import { ordering } from "@/content/ordering";
 import { useTheme } from "@/components/ThemeProvider";
 import { CtaButton } from "@/components/CtaButton";
 import { OpenNowBadge } from "@/components/OpenNowBadge";
 import { formatHours } from "@/lib/openNow";
+import { orderCta } from "@/lib/ordering";
 
 const HERO_IMAGE = {
   src: "/photos/hero-pata.jpg",
@@ -14,12 +16,13 @@ export function Hero() {
   const theme = useTheme();
   const align = theme.layout.heroAlign === "center" ? "items-center text-center" : "items-start";
   const heroSurface =
-    theme.name === "carinderia" ? "bg-canvas text-ink-invert" : "bg-surface-2 text-ink";
+    theme.name === "kusina" ? "bg-canvas text-ink-invert" : "bg-surface-2 text-ink";
   // text-gold fails AA on heritage's light band (2.29:1); text-accent clears it (7:1).
-  const kickerColor = theme.name === "carinderia" ? "text-gold" : "text-accent";
+  const kickerColor = theme.name === "kusina" ? "text-gold" : "text-accent";
   // Ghost CTA: text-accent on the charcoal canvas is 2.44:1 (fails AA). text-gold
   // is 7.5:1, and border-current follows it. Heritage keeps the default (7:1).
-  const ghostCtaClass = theme.name === "carinderia" ? "text-gold" : "";
+  const ghostCtaClass = theme.name === "kusina" ? "text-gold" : "";
+  const cta = orderCta(ordering, restaurant.phone.landlineHref, restaurant.phone.landlineDisplay);
 
   return (
     <section id="top" className={`${theme.layout.sectionPaddingY} ${heroSurface}`}>
@@ -38,8 +41,8 @@ export function Hero() {
         <OpenNowBadge hours={restaurant.hours} />
 
         <div className="flex flex-wrap gap-3">
-          <CtaButton href={restaurant.phone.landlineHref}>
-            Call to order — {restaurant.phone.landlineDisplay}
+          <CtaButton href={cta.href} {...(cta.external ? { rel: "noopener" } : {})}>
+            {cta.label}
           </CtaButton>
           <CtaButton
             href={restaurant.socials.messenger}
@@ -50,6 +53,8 @@ export function Hero() {
             Message on Facebook
           </CtaButton>
         </div>
+
+        {cta.external ? <p className="text-sm opacity-80">{ordering.note}</p> : null}
 
         <p className="text-sm opacity-80">
           {restaurant.address.street}, {restaurant.address.locality} · Open {restaurant.hours.days},{" "}

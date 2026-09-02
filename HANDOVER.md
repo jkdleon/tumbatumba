@@ -90,6 +90,70 @@ reference — complete but never applied. See `DEPLOYMENT.md` for the live path.
 
 ---
 
+## Ordering & inventory — Odoo on AWS (decided 2026-09-02)
+
+Online ordering, live availability, and chat are **not** being built into this
+site. They go in a self-hosted **Odoo** instance on AWS, and the static site
+links across to it. The split:
+
+| Stays on Vercel (this repo)   | Goes in Odoo                                |
+| ----------------------------- | ------------------------------------------- |
+| hero, menu, Our Story, Visit  | availability, cart, next-day reservations   |
+| the hand-designed identity    | live chat (replaces unwatched FB Messenger) |
+| static export, CDN, always up | daily order rail (phone / online / walk-in) |
+|                               | inventory, purchases, books                 |
+
+**Why the split.** Moving `/` into Odoo would put the restaurant's front page
+behind a single EC2 instance, and Odoo's website builder is a template system —
+the client explicitly asked for something that wasn't one. Keeping the handoff to
+a plain link means `output: "export"` stays, and `vercel.json`'s CSP needs no
+`connect-src` or CORS changes, because the browser never calls Odoo from our
+origin.
+
+**How it's wired here.** `web/content/ordering.ts` holds the shop URL and a
+`live` flag; `web/lib/ordering.ts` resolves the CTA. While `live: false` every
+ordering CTA falls back to the landline with today's exact copy, so this shipped
+without changing the live site. Flip `live: true` once `order.alingnene.com`
+resolves and Hero, VisitOrder and StickyOrderBar all move across at once.
+
+### How the kitchen actually works (confirmed by the family 2026-09-02)
+
+This drives the whole inventory model, so don't lose it:
+
+- Stock is bought **fresh at dawn** from the market, cleaned and pre-prepped.
+- It is held **chilled and uncooked**. Nothing is cooked until a customer orders.
+- Unsold stock **stays in the chiller** and is sold **first** the next day, while
+  the new batch is being prepped. It carries over; it does not reset at close.
+- They **rarely sell out**, because next-day reservations already account for
+  most of it.
+- **Fryer capacity ≈ 10 pick-up orders per hour** (4 burners). Against 09:00–22:00
+  that is ~130 orders/day.
+
+Consequences, in order of how much they matter:
+
+1. **Use Odoo's standard inventory, not a custom per-day model.** Prepared stock
+   is purchased, held, aged and consumed — that is ordinary inventory. Turn on
+   lot tracking (one lot per market run, dated), set the removal strategy to
+   **FIFO**, and set expiration dates. FIFO costing also gives real margin per
+   dish, which is the accounting half of this project for free.
+2. **The site is a reservation book more than a shop.** The number that matters
+   is not what's in the chiller now but what's free on the requested date:
+   on-hand + tomorrow's market run − already reserved. Odoo computes that as
+   `virtual_available` at a date; nothing for us to calculate.
+3. **The binding constraint is the fryer, not stock.** Ten pick-up orders all
+   wanting 19:00 passes every inventory check and the kitchen still can't do it.
+   Cap **pick-up slots per window**, not units per day.
+4. **Don't model the cooking.** Frying is fast, one-to-one, and never stocked.
+   A Manufacturing order per plate buys nothing.
+
+Still to confirm with the family: chiller shelf life (drives the expiry setting —
+a food-safety number, not a config detail), the cutoff time for next-day orders,
+and which dishes beyond pata / ulo / pancit follow the same carry-over cycle.
+
+Full write-up, with diagrams: see the build brief artifact linked in the PR.
+
+---
+
 ## File map
 
 ```
@@ -150,6 +214,13 @@ No manual deploy step. One-time Vercel project setup is in `DEPLOYMENT.md`.
 ---
 
 ## Design decisions worth keeping
+
+- **Theme `carinderia` was renamed to `kusina` (2026-09-02).** The family
+  confirmed this is a restaurant with a supplier, a chiller and a reservation
+  book — not a carinderia — and the theme name was reading as a positioning
+  claim. **Token values are unchanged**; they came from the client's printed
+  menu and logo. A real visual re-theme is still open, and should be reviewed
+  before it ships rather than changed by fiat.
 
 - **No framework, no build step** — deliberate. Editable by anyone, nothing to break.
 - **Palette + type are derived from the client's real menu/logo**, not chosen freshly. This is the main defence against the site looking AI-generated. Keep it.

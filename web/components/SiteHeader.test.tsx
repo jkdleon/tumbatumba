@@ -3,11 +3,11 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { carinderia } from "@/theme/carinderia";
+import { kusina } from "@/theme/kusina";
 
 function mount() {
   return render(
-    <ThemeProvider theme={carinderia}>
+    <ThemeProvider theme={kusina}>
       <SiteHeader />
     </ThemeProvider>,
   );
