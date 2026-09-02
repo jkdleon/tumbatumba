@@ -1,20 +1,28 @@
 # Handover — Aling Nene's Tumba Tumba website
 
-**Last updated:** 2026-09-01
-**Repo:** `D:\projects\aling-nenes\`
+**Last updated:** 2026-09-02
+**Repo:** `jkdleon/tumbatumba` on GitHub (owner's local clone: `D:\projects\aling-nenes\`)
 **Owner:** James Kyle (kyleraizel@gmail.com) — building this for the family restaurant; also his cloud-transition sabbatical project (moving from network engineering). IaC + docs are written to teach.
 
 ---
 
 ## TL;DR state
 
-The **site is built and content-accurate**. Hosting is **Vercel**, deployed from
-GitHub (`jkdleon/tumbatumba`) — push to `main` is production, PRs get preview
-URLs. Live on the Vercel `*.vercel.app` URL. Three things block a real launch:
-Our Story copy, two photos, domain registration.
+Two workstreams now.
 
-The earlier AWS/Terraform plan is archived under `infra-aws/` as a portfolio
-reference — complete but never applied. See `DEPLOYMENT.md` for the live path.
+**1. The website** is built and content-accurate, a **Next.js static export** in
+`web/`, hosted on **Vercel** from GitHub — push to `main` is production, PRs get
+preview URLs. Live on the Vercel `*.vercel.app` URL. Three things block a real
+launch: Our Story copy, three photos, domain registration.
+
+**2. Ordering, inventory, chat and the books** are being built in a self-hosted
+**Odoo on AWS** — not in this repo. The site links across to it. Nothing is
+deployed yet; the decision and the model are recorded below. The site side of the
+handoff is already merged and dormant behind a flag.
+
+The earlier AWS/Terraform work under `infra-aws/` is an archived reference for
+_static_ hosting (S3 + CloudFront). It does **not** transfer to the Odoo box —
+that's a stateful server with a database. See `DEPLOYMENT.md` for the live path.
 
 ---
 
@@ -35,23 +43,33 @@ reference — complete but never applied. See `DEPLOYMENT.md` for the live path.
 
 ## Done ✅
 
-- **Static site** in `site/` — hand-coded HTML/CSS/JS, no framework, no build step.
-  - Design pulled from the client's own printed menu + logo (blush paper `#f6e7db`, brick-red `#a5211a` labels, Playfair Display Didone for the name, Newsreader body). Deliberately not a template — client asked for "no AI slop".
-  - Sections: hero, The Food (full menu), Our Story, Visit, footer, mobile sticky call bar, styled `404.html`.
-  - Menu fully transcribed from `img/menu.jpg` and **confirmed by client 2026-09-01**:
+- **The site** — `web/`, Next.js App Router, `output: 'export'` (no server runtime).
+  - Two visual directions from one shared component set, switched by route:
+    `/` (`kusina`) and `/heritage`. Each is a `web/theme/*.ts` token object applied
+    as CSS variables, so swapping the object reskins every component.
+  - Design pulled from the client's own printed menu + logo (blush paper `#f6e7db`,
+    brick-red `#a5211a`). Deliberately not a template — client asked for "no AI slop".
+  - Sections: hero, signature dishes, social proof, full menu board, Our Story,
+    Visit & order, footer, mobile sticky order bar.
+  - All business data lives in `web/content/` — menu, dishes, restaurant, press,
+    story, ordering. **Confirmed by the client 2026-09-01:**
     - Crispy Pata `₱870 XL · ₱900 Jumbo` ("J" = Jumbo — confirmed)
     - Tokwa't Baboy `min. 2 orders` (confirmed)
     - Pancit bilao sizes + "add ₱50 for sotanghon or canton" note
   - All `tel:` links = `+63285708560` (landline dials as +63 2 8570 8560 — confirmed).
-  - Accessible, responsive, `prefers-reduced-motion` respected, near-zero animation, print stylesheet.
-  - `robots.txt`, `sitemap.xml`, JSON-LD `Restaurant` schema in `index.html`.
-  - Client's `Logo.jpg` → `site/img/logo.jpg`, `Menu.jpg` → `site/img/menu.jpg` (menu photo linked from the page as "view the printed menu").
-- **Vercel hosting** — `site/vercel.json` sets `cleanUrls`, security headers
-  (CSP, HSTS, `X-Frame-Options`, etc.), and asset cache headers. Project root
-  directory is `site/`, no build command. Setup + domain steps in `DEPLOYMENT.md`.
-- **CI** — `.github/workflows/ci.yml`: `prettier --check`, `html-validate`, and a
-  `lychee` link check on every PR and push to `main`. `package.json` carries the
-  dev tooling (`prettier`, `html-validate`); the site itself still has no build step.
+  - Accessible (a11y tests assert contrast on both themes), responsive,
+    `prefers-reduced-motion` respected.
+  - `robots.ts`, `sitemap.ts`, JSON-LD `Restaurant` schema via `RestaurantSchema`.
+  - Real photos for hero, crispy pata and crispy ulo in `web/public/photos/`.
+- **Ordering handoff to Odoo** — `web/content/ordering.ts` + `web/lib/ordering.ts`.
+  Dormant behind `live: false`; see the Odoo section below.
+- **Vercel hosting** — `web/vercel.json` sets `cleanUrls`, security headers
+  (CSP, HSTS, `X-Frame-Options`), and asset cache headers. Vercel project **root
+  directory is `web`**. Setup + domain steps in `DEPLOYMENT.md`.
+- **CI** — `.github/workflows/ci.yml`, three jobs: `prettier --check` at the root,
+  a `lychee` link check, and a `web` job running `tsc --noEmit`, `next lint`,
+  `vitest run`, `next build`, and the `check-no-stock.mjs` reminder.
+  106 tests across 26 files, all passing.
 - **PR governance** — `.github/pull_request_template.md`, `.github/CODEOWNERS`
   (`* @jkdleon`), branch protection on `main` (PR required, CI checks required,
   no force-push).
@@ -59,34 +77,59 @@ reference — complete but never applied. See `DEPLOYMENT.md` for the live path.
   ACM us-east-1 + Route 53) and `infra-aws/scripts/deploy.{ps1,sh}`. Complete,
   internally consistent, **never run**. `docs/aws-setup.md` is the matching
   walkthrough, banner-marked as archived.
-- **Docs** — `README.md` (overview + local dev + checks), `DEPLOYMENT.md` (Vercel
-  pipeline), `infra-aws/README.md` (why the AWS code is kept).
-- `.gitignore` set up (`node_modules/`, `.vercel/`, tfstate/tfvars ignored;
-  `.terraform.lock.hcl` intentionally NOT ignored).
+- **Docs** — `README.md`, `DEPLOYMENT.md`, `infra-aws/README.md`,
+  `web/public/stock/README.md` (photo shot list).
 
 ---
 
 ## Pending / blockers 🚧
 
-1. **Our Story copy.** `site/index.html` has bracketed placeholder text in the `#story` section. There's an HTML comment right above it listing what to ask the client:
+### Website launch
+
+1. **Our Story copy.** `web/content/story.ts` is placeholder. What to ask the family:
    - Aling Nene's full name + what people call her
    - Where "Tumba Tumba" comes from (rocking chair? a place? a nickname?)
    - Year the kitchen started, and on what dish
    - Who runs it now (which generation, whose recipes)
    - One family-only detail (a regular's order, a fiesta, the vat)
-     Replace placeholders with the family's own words — do **not** invent or write marketing fluff.
-2. **Two photos** (client owns them, not stock). Specs in `site/img/README.md`:
-   - `site/img/hero-pata.jpg` — ~2000px wide landscape, the whole crispy pata. Then swap the placeholder `<figure>` in `index.html` for the real one (commented example is right there).
-   - `site/img/story.jpg` — ~1400px, portrait/square, family or kitchen. Same swap in the `#story` section.
-3. **Register `alingnene.com`** and attach it in Vercel — steps in
-   `DEPLOYMENT.md` § "Adding the domain later". Until then the site runs on the
-   Vercel `*.vercel.app` URL. After attaching, update the hardcoded
-   `https://alingnene.com` URLs in `site/sitemap.xml`, `site/robots.txt`, and the
-   `og:url` / JSON-LD `url` in `site/index.html`.
-4. **Favicon** — currently points at `logo.jpg`. Make a real `favicon.ico` from
-   the logo.
-5. **Optional** — decide on a Google Maps embed vs the current plain map link (an
-   embed needs a `frame-src` widening in `site/vercel.json`'s CSP).
+
+   Use the family's own words — do **not** invent or write marketing fluff.
+
+2. **Three photos** still stock. Specs in `web/public/stock/README.md`:
+   - `dish-sisig.jpg` and `dish-pancit.jpg` → replace, then flip `isStock` in
+     `web/content/dishes.ts`
+   - `story.jpg` → kitchen / family / storefront shot, then drop the placeholder
+     in `web/components/OurStory.tsx`
+
+   `node scripts/check-no-stock.mjs` (from `web/`) lists what still references
+   `/stock/`. It is a **reminder-only, non-strict** check — it does not fail CI.
+
+3. **Register `alingnene.com`** and attach it in Vercel — steps in `DEPLOYMENT.md`.
+   Until then the site runs on the Vercel `*.vercel.app` URL. The origin is
+   centralised in `web/lib/siteUrl.ts` (overridable via `NEXT_PUBLIC_SITE_URL`),
+   so there are no hardcoded URLs to hunt down.
+4. **Lighthouse + axe** against a deployed URL for both `/` and `/heritage`
+   (target ≥ 95). Can't run in CI.
+5. **Favicon** — still points at `logo.jpg`. Make a real `favicon.ico`.
+6. **Optional** — Google Maps embed vs the current plain link (an embed needs
+   `frame-src` widening in `web/vercel.json`'s CSP).
+
+### Odoo build — not started
+
+7. **Phase 01: stand Odoo up on AWS.** One instance, TLS, real domain, nightly
+   dump, and **a restore actually tested into a scratch database** before anyone
+   depends on it.
+8. **Answers needed from the family** before the inventory model is finalised:
+   - **Chiller shelf life** for prepped, uncooked pata. This sets the lot expiry
+     and is a food-safety number, not a config detail. Highest priority.
+   - **Cutoff time** for next-day orders (latest a reservation still makes the
+     dawn market list).
+   - **Which dishes carry over** beyond pata / ulo / pancit — same chiller cycle,
+     or made fresh daily?
+9. **Visual re-theme** of the landing site is open. The owner approved the idea on
+   2026-09-02; only the _name_ changed so far (see Design decisions). Any token
+   change should be reviewed visually before it ships — the current palette came
+   from the client's printed menu.
 
 ---
 
@@ -161,55 +204,64 @@ tumbatumba/
 ├── HANDOVER.md          ← this file
 ├── README.md            overview, local dev, checks
 ├── DEPLOYMENT.md        Vercel pipeline + one-time setup + domain steps
-├── package.json         dev-only tooling (prettier, html-validate)
-├── .prettierrc  .prettierignore  .htmlvalidate.json
-├── .gitignore
+├── package.json         repo-root dev tooling — Prettier ONLY
+├── .prettierrc  .prettierignore  .gitattributes  .gitignore
 ├── .github/
-│   ├── workflows/ci.yml         prettier + html-validate + lychee link check
+│   ├── workflows/ci.yml         prettier + lychee + web (tsc/lint/test/build)
 │   ├── pull_request_template.md
 │   └── CODEOWNERS               * @jkdleon
-├── site/
-│   ├── index.html       the whole page (Our Story = placeholder)
-│   ├── 404.html
-│   ├── vercel.json      cleanUrls, security headers, asset cache headers
-│   ├── css/styles.css   single stylesheet, design tokens at top
-│   ├── js/main.js       ~30 lines: mobile nav toggle + footer year
-│   ├── img/
-│   │   ├── logo.jpg     ✅ from client
-│   │   ├── menu.jpg     ✅ from client
-│   │   └── README.md    photo specs + how to add hero/story images
-│   ├── robots.txt
-│   └── sitemap.xml
-├── infra-aws/           ARCHIVED — reference Terraform, never applied
+├── web/                 ← the site. Vercel root directory is this folder.
+│   ├── app/             routes: page.tsx (/), heritage/page.tsx, layout.tsx,
+│   │                    robots.ts, sitemap.ts, globals.css
+│   ├── components/      shared UI, themed via <ThemeProvider>. Co-located *.test.tsx
+│   ├── content/         ALL business data — menu, dishes, restaurant, press,
+│   │                    story, ordering (the Odoo handoff)
+│   ├── lib/             openNow, siteUrl, ordering (CTA resolution)
+│   ├── theme/           kusina.ts / heritage.ts token objects + tokens.ts types
+│   ├── public/photos/   real photos (hero, pata, ulo)
+│   ├── public/stock/    placeholders — DO NOT SHIP, see its README
+│   ├── scripts/check-no-stock.mjs
+│   ├── next.config.ts   output: "export" — keep it that way
+│   └── vercel.json      security headers / caching
+├── infra-aws/           ARCHIVED — reference Terraform for STATIC hosting.
+│   │                    Does not apply to the Odoo box.
 │   ├── versions.tf providers.tf variables.tf main.tf outputs.tf backend.tf
-│   ├── terraform.tfvars.example
-│   ├── scripts/deploy.ps1 · deploy.sh   (S3 sync + CloudFront invalidation)
-│   └── README.md        why this is kept
+│   ├── scripts/deploy.ps1 · deploy.sh
+│   └── README.md
 └── docs/
-    └── aws-setup.md     ARCHIVED walkthrough (banner-marked)
+    ├── aws-setup.md     ARCHIVED walkthrough (banner-marked)
+    └── superpowers/     dated plan + design spec from the 2026-09-01 redesign.
+                         Historical record — still says "carinderia" on purpose.
 ```
 
 ---
 
 ## How to run / deploy
 
-**Local preview:**
+**Local:**
 
 ```bash
-cd D:\projects\aling-nenes\site
-python -m http.server 8080
-# http://localhost:8080
-```
-
-**Checks before pushing:**
-
-```bash
+cd web
 npm install        # once
-npm run lint       # prettier --check + html-validate
+npm run dev        # http://localhost:3000  ( / and /heritage )
 ```
 
-**Deploy:** open a PR (get a preview URL + CI), merge to `main` (production).
-No manual deploy step. One-time Vercel project setup is in `DEPLOYMENT.md`.
+**Checks before pushing** — CI runs the same and they're required to merge:
+
+```bash
+# from repo root
+npm run lint       # prettier --check .
+
+# from web/
+npx tsc --noEmit
+npx next lint
+npx vitest run
+npm run build      # static export → web/out/
+node scripts/check-no-stock.mjs   # reminder only, does not fail CI
+```
+
+**Deploy:** open a PR (preview URL + CI), merge to `main` (production). No manual
+deploy step. One-time Vercel setup is in `DEPLOYMENT.md`.
 
 ---
 
@@ -221,16 +273,19 @@ No manual deploy step. One-time Vercel project setup is in `DEPLOYMENT.md`.
   claim. **Token values are unchanged**; they came from the client's printed
   menu and logo. A real visual re-theme is still open, and should be reviewed
   before it ships rather than changed by fiat.
-
-- **No framework, no build step** — deliberate. Editable by anyone, nothing to break.
-- **Palette + type are derived from the client's real menu/logo**, not chosen freshly. This is the main defence against the site looking AI-generated. Keep it.
+- **`output: "export"` is load-bearing.** Keeping the Odoo handoff to a plain
+  link is what lets the site stay a static export on a CDN. Dropping it to add a
+  route handler is a real decision with an availability cost — don't do it by
+  accident.
+- **Palette + type are derived from the client's real menu/logo**, not chosen
+  freshly. This is the main defence against the site looking AI-generated. Keep it.
 - **Menu is a typographic price list**, not cards. Keep it.
 - **Almost no motion.** Client explicitly dislikes scroll animations.
-- **No cache-busting on assets** — `css/`/`js/` filenames aren't hashed, so
-  `vercel.json` keeps their `Cache-Control` short (1h, must-revalidate). Don't
-  bump it without adding hashed filenames.
-- **CSP is tight** (`script-src 'self'`, fonts allowlisted). Any analytics
-  snippet, embed, or inline script needs a matching widening in `site/vercel.json`.
+- **All business data lives in `web/content/`.** Components never hardcode a
+  price, a phone number or an address.
+- **CSP is tight** (`default-src 'self'`). Any analytics snippet, embed, chat
+  widget or cross-origin fetch needs a matching widening in `web/vercel.json` —
+  note `connect-src` and `frame-src` are not declared, so they inherit `'self'`.
 
 ---
 
@@ -246,7 +301,14 @@ records).
 
 ## Context notes
 
-- Environment is Windows 11, PowerShell primary, Bash tool available. Project on `D:` drive (client's choice).
-- Client confirmed menu + phone details on 2026-09-01. Everything else in Our Story is unconfirmed placeholder.
-- Hosting switched from AWS to Vercel on 2026-09-01, before first commit. GitHub repo: `jkdleon/tumbatumba`.
+- Owner's environment is Windows 11, PowerShell primary. Project on `D:` (client's choice).
+  Sessions may also run in Claude Code's cloud container against the GitHub repo.
+- Client confirmed menu + phone details on 2026-09-01. Our Story remains unconfirmed placeholder.
+- Daily operations confirmed by the family on 2026-09-02 — see the Odoo section.
+  That conversation corrected an earlier wrong assumption (that stock is cooked
+  in batches and resets nightly). It does not: it carries over in the chiller.
+- Hosting switched from AWS to Vercel on 2026-09-01, before first commit.
+- The `site/` directory referenced in older notes was deleted in commit `1591227`;
+  everything moved to `web/`. Ignore any lingering `site/` path in the archived
+  docs under `docs/superpowers/`.
 - There is a memory file: `aling-nene-website.md` (type: project) with a pointer in `MEMORY.md`.
