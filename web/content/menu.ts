@@ -12,14 +12,14 @@ export interface MenuGroup {
   items: MenuItem[];
 }
 
-/** Full price list, four groups. Verbatim from site/index.html (confirmed 2026-09-01). */
+/** Full price list, five groups. Verbatim from site/index.html (confirmed 2026-09-01). */
 export const menuGroups: MenuGroup[] = [
   {
     id: "pork",
     label: "Pork",
     items: [
       { name: "Crispy Pata", price: "870 XL · 900 Jumbo" },
-      { name: "Crispy Ulo", price: "900" },
+      { name: "Crispy Ulo", qualifier: "half head", price: "900" },
       { name: "Lumpiang Shanghai", qualifier: "10 pcs", price: "200" },
       { name: "Tokwa't Baboy", qualifier: "min. 2 orders", price: "200" },
       { name: "Big Siomai", qualifier: "5 pcs", price: "50" },
@@ -29,8 +29,6 @@ export const menuGroups: MenuGroup[] = [
     id: "must-try",
     label: "Must Try",
     items: [
-      { name: "Cheese Sticks", qualifier: "25 pcs", price: "60" },
-      { name: "Cheese Sticks", qualifier: "homemade, 50 pcs", price: "120" },
       { name: "Lengua Asado", price: "200" },
       { name: "Sisig", price: "200" },
     ],
@@ -45,6 +43,16 @@ export const menuGroups: MenuGroup[] = [
       { name: "Medium Bilao", qualifier: "good for 5–7", price: "450" },
       { name: "Large Bilao", qualifier: "good for 8–10", price: "650" },
       { name: "XL Bilao", qualifier: "good for 11–15", price: "850" },
+    ],
+  },
+  {
+    id: "pre-order",
+    label: "Pre-order",
+    note: "Please order at least 1 day ahead.",
+    items: [
+      { name: "Cheese Sticks", qualifier: "25 pcs", price: "60" },
+      { name: "Cheese Sticks", qualifier: "homemade, 50 pcs", price: "120" },
+      { name: "Chicken ala Tumba", qualifier: "whole chicken", price: "400" },
     ],
   },
   {

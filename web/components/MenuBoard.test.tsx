@@ -14,9 +14,9 @@ function mount(theme = carinderia) {
 }
 
 describe("MenuBoard", () => {
-  it("renders all four group headings", () => {
+  it("renders all five group headings", () => {
     mount();
-    for (const label of ["Pork", "Must Try", "Pancit by the Bilao", "Extras"]) {
+    for (const label of ["Pork", "Must Try", "Pancit by the Bilao", "Pre-order", "Extras"]) {
       expect(screen.getByRole("heading", { name: label })).toBeInTheDocument();
     }
   });
@@ -25,6 +25,13 @@ describe("MenuBoard", () => {
     mount();
     expect(screen.getByText("Crispy Pata")).toBeInTheDocument();
     expect(screen.getByText("870 XL · 900 Jumbo")).toBeInTheDocument();
+  });
+
+  it("shows the pre-order lead time and its items", () => {
+    mount();
+    expect(screen.getByText("Please order at least 1 day ahead.")).toBeInTheDocument();
+    expect(screen.getByText("Chicken ala Tumba")).toBeInTheDocument();
+    expect(screen.getByText("whole chicken")).toBeInTheDocument();
   });
 
   it("shows the pancit +₱50 note", () => {

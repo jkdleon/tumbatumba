@@ -43,11 +43,11 @@ export const dishes: Dish[] = [
   {
     id: "ulo",
     name: "Crispy Ulo",
-    blurb: "Whole pork head, seasoned and simmered, then fried the same way as the pata.",
+    blurb: "Half a pork head, seasoned and simmered, then fried the same way as the pata.",
     price: "₱900",
     image: {
       src: "/photos/dish-ulo.jpg",
-      alt: "A whole crispy ulo (pork head) on a black plate, skin blistered and deep golden-brown.",
+      alt: "A crispy ulo (half a pork head) on a black plate, skin blistered and deep golden-brown.",
       isStock: false,
     },
   },
