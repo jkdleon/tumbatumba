@@ -44,7 +44,7 @@ describe("menu content", () => {
     const preOrder = menuGroups.find((g) => g.id === "pre-order")!;
     const chicken = preOrder.items.find((i) => i.name === "Chicken ala Tumba")!;
     expect(chicken.qualifier).toBe("whole chicken");
-    expect(chicken.price).toBe("400");
+    expect(chicken.price).toBe("450");
   });
 
   it("sells Crispy Ulo by the half head", () => {
@@ -97,7 +97,7 @@ describe("menu content", () => {
         items: [
           { name: "Cheese Sticks", qualifier: "25 pcs", price: "60" },
           { name: "Cheese Sticks", qualifier: "homemade, 50 pcs", price: "120" },
-          { name: "Chicken ala Tumba", qualifier: "whole chicken", price: "400" },
+          { name: "Chicken ala Tumba", qualifier: "whole chicken", price: "450" },
         ],
       },
       {

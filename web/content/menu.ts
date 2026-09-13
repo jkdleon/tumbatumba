@@ -52,7 +52,7 @@ export const menuGroups: MenuGroup[] = [
     items: [
       { name: "Cheese Sticks", qualifier: "25 pcs", price: "60" },
       { name: "Cheese Sticks", qualifier: "homemade, 50 pcs", price: "120" },
-      { name: "Chicken ala Tumba", qualifier: "whole chicken", price: "400" },
+      { name: "Chicken ala Tumba", qualifier: "whole chicken", price: "450" },
     ],
   },
   {
