@@ -21,7 +21,6 @@ export const menuGroups: MenuGroup[] = [
       { name: "Crispy Pata", price: "870 XL · 900 Jumbo" },
       { name: "Crispy Ulo", qualifier: "half head", price: "900" },
       { name: "Lumpiang Shanghai", qualifier: "10 pcs", price: "200" },
-      { name: "Tokwa't Baboy", qualifier: "min. 2 orders", price: "200" },
       { name: "Big Siomai", qualifier: "5 pcs", price: "50" },
     ],
   },

@@ -25,14 +25,8 @@ describe("menu content", () => {
     );
   });
 
-  it("keeps the Tokwa't Baboy minimum-order qualifier", () => {
-    const pork = menuGroups.find((g) => g.id === "pork")!;
-    const tokwa = pork.items.find((i) => i.name === "Tokwa't Baboy")!;
-    expect(tokwa.qualifier).toBe("min. 2 orders");
-  });
-
-  it("has 5 pork, 2 must-try, 4 pancit, 3 pre-order, 2 extras items", () => {
-    expect(menuGroups.map((g) => g.items.length)).toEqual([5, 2, 4, 3, 2]);
+  it("has 4 pork, 2 must-try, 4 pancit, 3 pre-order, 2 extras items", () => {
+    expect(menuGroups.map((g) => g.items.length)).toEqual([4, 2, 4, 3, 2]);
   });
 
   it("keeps the one-day lead time on the pre-order group", () => {
@@ -66,7 +60,6 @@ describe("menu content", () => {
           { name: "Crispy Pata", price: "870 XL · 900 Jumbo" },
           { name: "Crispy Ulo", qualifier: "half head", price: "900" },
           { name: "Lumpiang Shanghai", qualifier: "10 pcs", price: "200" },
-          { name: "Tokwa't Baboy", qualifier: "min. 2 orders", price: "200" },
           { name: "Big Siomai", qualifier: "5 pcs", price: "50" },
         ],
       },
