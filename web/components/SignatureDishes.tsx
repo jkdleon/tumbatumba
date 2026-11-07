@@ -1,50 +1,138 @@
 import Image from "next/image";
 import { dishes, type Dish } from "@/content/dishes";
 import { restaurant } from "@/content/restaurant";
-import { useTheme } from "@/components/ThemeProvider";
-import { CtaButton } from "@/components/CtaButton";
 
-function DishCard({ dish, lift }: { dish: Dish; lift: boolean }) {
+const LAYOUT: Record<string, { span: string; tile: string }> = {
+  pata: { span: "sm:col-span-2 lg:row-span-2", tile: "bg-orange" },
+  ulo: { span: "sm:col-span-2", tile: "bg-pink" },
+  sisig: { span: "", tile: "bg-hot text-on-bright" },
+  pancit: { span: "", tile: "bg-lime text-on-bright" },
+};
+
+function OrderLink({ dish, light }: { dish: Dish; light?: boolean }) {
   return (
-    <article
+    <a
+      href={restaurant.phone.landlineHref}
+      aria-label={`Order ${dish.name} — call ${restaurant.phone.landlineDisplay}`}
       className={
-        "flex flex-col overflow-hidden rounded-theme border border-ink/10 bg-surface-2 text-ink " +
-        (lift
-          ? "motion-safe:transition-transform motion-safe:duration-[var(--t-motion-fast)] motion-safe:hover:-translate-y-1"
-          : "")
+        "pop inline-flex min-h-11 items-center gap-2 rounded-full px-4 font-display text-sm font-bold " +
+        "transition-transform hover:-translate-y-0.5 " +
+        (light ? "bg-night text-fg" : "bg-fg text-night")
       }
     >
-      <div className="relative aspect-[4/3] w-full bg-surface-1">
+      Order this <span aria-hidden="true">→</span>
+    </a>
+  );
+}
+
+function PhotoCard({ dish }: { dish: Dish }) {
+  const { span, tile } = LAYOUT[dish.id];
+  const big = dish.id === "pata";
+  return (
+    <article
+      data-reveal
+      className={`pop-lg group relative flex min-h-[22rem] flex-col overflow-hidden rounded-[2rem] ${tile} ${span}`}
+    >
+      <div
+        className={`relative w-full flex-1 overflow-hidden ${big ? "min-h-[18rem]" : "min-h-[12rem]"}`}
+      >
         <Image
-          src={dish.image.src}
-          alt={dish.image.alt}
+          src={dish.image!.src}
+          alt={dish.image!.alt}
           fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-          className="object-contain"
+          sizes={big ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 640px) 50vw, 100vw"}
+          className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
         />
+        <span className="pop absolute left-4 top-4 -rotate-3 rounded-full bg-yellow px-3 py-1 font-display text-xs font-bold uppercase tracking-wider text-on-bright">
+          {dish.tag}
+        </span>
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="font-display text-xl font-bold">{dish.name}</h3>
-        <p className="flex-1 text-sm text-ink/80">{dish.blurb}</p>
-        <p className="font-semibold text-accent">{dish.price}</p>
-        <CtaButton href={restaurant.phone.landlineHref} className="mt-2 w-full text-sm">
-          Order this
-        </CtaButton>
+      <div className="flex flex-wrap items-end justify-between gap-3 border-t-2 border-fg bg-night p-5">
+        <div className="min-w-0 flex-1">
+          <h3
+            className={`font-display font-extrabold leading-none tracking-tight ${big ? "text-4xl" : "text-3xl"}`}
+          >
+            {dish.name}
+          </h3>
+          <p className="mt-2 max-w-md text-sm text-fg/80">{dish.blurb}</p>
+          <p className="mt-2 font-display text-lg font-extrabold text-hot">{dish.price}</p>
+        </div>
+        <OrderLink dish={dish} />
+      </div>
+    </article>
+  );
+}
+
+function TypeCard({ dish }: { dish: Dish }) {
+  const { span, tile } = LAYOUT[dish.id];
+  const dark = dish.id === "sisig";
+  return (
+    <article
+      data-reveal
+      style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
+      className={`pop-lg group relative flex min-h-[22rem] flex-col justify-between overflow-hidden rounded-[2rem] p-6 ${tile} ${span}`}
+    >
+      <div
+        aria-hidden="true"
+        className={`absolute inset-0 ${dark ? "dots opacity-60" : "weave"}`}
+      />
+      {dish.id === "pancit" && (
+        <div
+          aria-hidden="true"
+          className="weave absolute -bottom-16 -right-16 h-56 w-56 rounded-full border-[6px] border-on-bright/70 bg-yellow motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:rotate-45"
+        />
+      )}
+      {dish.id === "sisig" && (
+        <div aria-hidden="true" className="absolute right-5 top-5 flex gap-1.5">
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className="block h-10 w-1.5 rounded-full bg-yellow motion-safe:animate-float"
+              style={{ animationDelay: `${i * 300}ms` }}
+            />
+          ))}
+        </div>
+      )}
+      <span
+        className={`pop relative w-fit -rotate-3 rounded-full px-3 py-1 font-display text-xs font-bold uppercase tracking-wider ${dark ? "bg-yellow text-on-bright" : "bg-night text-fg"}`}
+      >
+        {dish.tag}
+      </span>
+      <div className="relative">
+        <h3 className="font-display text-4xl font-extrabold uppercase leading-[0.9] tracking-tight">
+          {dish.name}
+        </h3>
+        <p className={"mt-3 text-sm text-on-bright/85"}>{dish.blurb}</p>
+        <p className="mt-3 font-display text-xl font-extrabold">{dish.price}</p>
+        <div className="mt-4">
+          <OrderLink dish={dish} light={dark} />
+        </div>
       </div>
     </article>
   );
 }
 
 export function SignatureDishes() {
-  const theme = useTheme();
   return (
-    <section id="dishes" className={`${theme.layout.sectionPaddingY} bg-surface-1 text-ink`}>
-      <div className="mx-auto w-[min(100%-2.5rem,70rem)]">
-        <h2 className="mb-8 font-display text-3xl font-bold">What people come back for</h2>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {dishes.map((dish) => (
-            <DishCard key={dish.id} dish={dish} lift={theme.motion === "full"} />
-          ))}
+    <section id="dishes" className="py-20 sm:py-28">
+      <div className="wrap">
+        <div data-reveal className="mb-10 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="font-script text-2xl text-hot">ang mga bida</p>
+            <h2 className="font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-7xl">
+              Main characters
+            </h2>
+          </div>
+          <p className="max-w-sm text-fg/80">
+            The ones people come back for. Bilao and platters are made to order — call ahead so
+            it&apos;s hot when you arrive.
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[auto_auto]">
+          {dishes.map((d) =>
+            d.image ? <PhotoCard key={d.id} dish={d} /> : <TypeCard key={d.id} dish={d} />,
+          )}
         </div>
       </div>
     </section>

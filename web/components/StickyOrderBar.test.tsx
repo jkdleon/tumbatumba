@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { StickyOrderBar } from "@/components/StickyOrderBar";
 
-// jsdom lacks IntersectionObserver; stub it so the component mounts.
 beforeAll(() => {
   vi.stubGlobal(
     "IntersectionObserver",

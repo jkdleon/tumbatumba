@@ -1,37 +1,43 @@
-"use client";
-
-import type { Theme } from "@/theme/tokens";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Hero } from "@/components/Hero";
+import { TapeStrip } from "@/components/TapeStrip";
 import { SignatureDishes } from "@/components/SignatureDishes";
-import { SocialProof } from "@/components/SocialProof";
+import { Method } from "@/components/Method";
 import { MenuBoard } from "@/components/MenuBoard";
+import { BarkadaPlanner } from "@/components/BarkadaPlanner";
+import { SocialFeed } from "@/components/SocialFeed";
 import { OurStory } from "@/components/OurStory";
 import { VisitOrder } from "@/components/VisitOrder";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StickyOrderBar } from "@/components/StickyOrderBar";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
-export function LandingPage({ theme }: { theme: Theme }) {
+export function LandingPage() {
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <a
         href="#menu"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-ink focus:px-3 focus:py-2 focus:text-ink-invert"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[60] focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-night"
       >
         Skip to the menu
       </a>
+      <AnnouncementBar />
       <SiteHeader />
       <main>
         <Hero />
+        <TapeStrip />
         <SignatureDishes />
-        <SocialProof />
+        <Method />
         <MenuBoard />
+        <BarkadaPlanner />
+        <SocialFeed />
         <OurStory />
         <VisitOrder />
       </main>
       <SiteFooter />
       <StickyOrderBar />
-    </ThemeProvider>
+      <ScrollReveal />
+    </>
   );
 }

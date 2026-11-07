@@ -1,55 +1,30 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Hero } from "@/components/Hero";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { carinderia } from "@/theme/carinderia";
+import { setupLandingEnv } from "@/components/testUtils";
 
-function mount() {
-  return render(
-    <ThemeProvider theme={carinderia}>
-      <Hero />
-    </ThemeProvider>,
-  );
-}
+setupLandingEnv();
 
 describe("Hero", () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-    vi.setSystemTime(new Date("2026-09-01T05:00:00Z"));
-  });
-  afterEach(() => vi.useRealTimers());
-
-  it("renders the headline", () => {
-    mount();
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Tumba Tumba/);
+  it("leads with Crispy Pata in the h1 and the family's own photo", () => {
+    render(<Hero />);
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toMatch(/crispy\s*pata/i);
+    expect(screen.getByAltText(/whole crispy pata/i)).toHaveAttribute(
+      "src",
+      "/photos/hero-pata.jpg",
+    );
   });
 
-  it("renders both CTAs with the confirmed hrefs", () => {
-    mount();
+  it("offers call and planner CTAs, and keeps the sticky-bar sentinel", () => {
+    const { container } = render(<Hero />);
     expect(screen.getByRole("link", { name: /call to order/i })).toHaveAttribute(
       "href",
       "tel:+63285708560",
     );
-    expect(screen.getByRole("link", { name: /message on facebook/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /barkada order/i })).toHaveAttribute(
       "href",
-      "https://m.me/alingnenetumbatumba",
+      "#planner",
     );
-  });
-
-  it("shows the open-now badge", () => {
-    mount();
-    expect(screen.getByText(/Open now|Closed/)).toBeInTheDocument();
-  });
-
-  it("renders the sticky-bar sentinel", () => {
-    const { container } = mount();
     expect(container.querySelector("#hero-end")).toBeTruthy();
-  });
-
-  it("renders the real hero photo (no longer a stock placeholder)", () => {
-    mount();
-    const img = screen.getByRole("img");
-    expect(img).toHaveAttribute("src", expect.stringContaining("/photos/hero-pata.jpg"));
-    expect(img.getAttribute("alt") ?? "").not.toMatch(/stock/i);
   });
 });

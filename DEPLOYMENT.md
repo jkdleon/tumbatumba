@@ -96,9 +96,8 @@ touched until cutover (spec §4.4).
 6. **Environment Variables:** add `NEXT_PUBLIC_SITE_URL` =
    `https://<the-staging-domain-vercel-gives-you>` (used for canonical/OG URLs).
 7. **Settings → Git → Production Branch:** set to `redesign`.
-8. Deploy. The staging URL then serves:
-   - `/` → "Carinderia heat"
-   - `/heritage` → "Heritage kitchen"
+8. Deploy. The staging URL then serves the landing page at `/` (the earlier
+   `/heritage` comparison route was retired in the 2026-11 redesign).
 
 ### Day-to-day
 

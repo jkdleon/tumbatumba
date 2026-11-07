@@ -3,15 +3,18 @@
 import { useEffect, useState } from "react";
 import { restaurant } from "@/content/restaurant";
 import { CtaButton } from "@/components/CtaButton";
-
-const NAV = [
-  { href: "#menu", label: "Menu" },
-  { href: "#story", label: "Story" },
-  { href: "#visit", label: "Visit" },
-];
+import { NAV } from "@/content/nav";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -23,34 +26,43 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-invert/15 bg-ink/90 backdrop-blur">
-      <div className="mx-auto flex w-[min(100%-2.5rem,70rem)] items-center justify-between gap-4 py-3">
-        <a href="#top" className="flex items-center gap-3" aria-label={`${restaurant.name} — home`}>
+    <header
+      className={
+        "sticky top-0 z-40 bg-night/90 backdrop-blur-md transition-[border-color,box-shadow] " +
+        (scrolled || open ? "border-b-2 border-fg" : "border-b-2 border-transparent")
+      }
+    >
+      <div className="wrap flex items-center justify-between gap-4 py-3">
+        <a
+          href="#top"
+          className="group flex items-center gap-3"
+          aria-label={`${restaurant.name} — home`}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.jpg" alt="" width={44} height={44} className="rounded-full" />
-          <span className="font-display text-lg font-bold leading-none text-ink-invert">
-            {restaurant.shortName}
+          <img
+            src="/logo.jpg"
+            alt=""
+            width={48}
+            height={48}
+            className="pop h-12 w-12 rounded-full motion-safe:transition-transform motion-safe:group-hover:rotate-12"
+          />
+          <span className="leading-none">
+            <span className="block font-display text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-lime">
+              Aling Nene&apos;s
+            </span>
+            <span className="block font-display text-xl font-extrabold tracking-tight">
+              Tumba Tumba
+            </span>
           </span>
         </a>
 
-        <nav aria-label="Primary" className="flex items-center gap-4">
-          <button
-            type="button"
-            className="min-h-11 rounded-theme border border-current px-3 py-2 text-sm text-ink-invert md:hidden"
-            aria-expanded={open}
-            aria-controls="site-nav"
-            aria-label={open ? "Close menu" : "Menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            Menu
-          </button>
-
+        <nav aria-label="Primary" className="flex items-center gap-3">
           <ul
             id="site-nav"
             className={
-              "absolute inset-x-0 top-full flex-col gap-1 border-b border-ink-invert/15 bg-ink p-4 " +
-              "md:static md:flex md:flex-row md:items-center md:gap-5 md:border-0 md:bg-transparent md:p-0 " +
-              (open ? "flex" : "hidden md:flex")
+              "absolute inset-x-0 top-full flex-col gap-1 border-b-2 border-fg bg-night p-4 " +
+              "lg:static lg:flex lg:flex-row lg:items-center lg:gap-1 lg:border-0 lg:bg-transparent lg:p-0 " +
+              (open ? "flex" : "hidden lg:flex")
             }
             onClick={(e) => {
               if ((e.target as HTMLElement).closest("a")) setOpen(false);
@@ -60,18 +72,26 @@ export function SiteHeader() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="block py-2 text-ink-invert hover:text-accent-strong md:py-0"
+                  className="block rounded-full px-4 py-3 font-display font-semibold hover:bg-fg hover:text-night lg:py-2"
                 >
                   {item.label}
                 </a>
               </li>
             ))}
-            <li>
-              <CtaButton href={restaurant.phone.landlineHref} className="w-full md:w-auto">
-                Call to order
-              </CtaButton>
-            </li>
           </ul>
+          <span className="hidden sm:block">
+            <CtaButton href={restaurant.phone.landlineHref}>Call to order</CtaButton>
+          </span>
+          <button
+            type="button"
+            className="pop min-h-12 rounded-full bg-yellow px-5 font-display font-bold text-on-bright lg:hidden"
+            aria-expanded={open}
+            aria-controls="site-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? "Close" : "Menu"}
+          </button>
         </nav>
       </div>
     </header>

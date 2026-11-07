@@ -1,54 +1,37 @@
 import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MenuBoard } from "@/components/MenuBoard";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { carinderia } from "@/theme/carinderia";
-import { heritage } from "@/theme/heritage";
-
-function mount(theme = carinderia) {
-  return render(
-    <ThemeProvider theme={theme}>
-      <MenuBoard />
-    </ThemeProvider>,
-  );
-}
 
 describe("MenuBoard", () => {
-  it("renders all five group headings", () => {
-    mount();
+  it("shows every group under 'Everything'", () => {
+    render(<MenuBoard />);
+    const panel = screen.getByRole("tabpanel");
     for (const label of ["Pork", "Must Try", "Pancit by the Bilao", "Pre-order", "Extras"]) {
-      expect(screen.getByRole("heading", { name: label })).toBeInTheDocument();
+      expect(within(panel).getByRole("heading", { name: label })).toBeInTheDocument();
     }
+    expect(within(panel).getByText("870 XL · 900 Jumbo")).toBeInTheDocument();
   });
 
-  it("shows Crispy Pata with its dual price", () => {
-    mount();
-    expect(screen.getByText("Crispy Pata")).toBeInTheDocument();
-    expect(screen.getByText("870 XL · 900 Jumbo")).toBeInTheDocument();
+  it("filters to one group when a tab is picked", () => {
+    render(<MenuBoard />);
+    fireEvent.click(screen.getByRole("tab", { name: "Pre-order" }));
+    const panel = screen.getByRole("tabpanel");
+    expect(within(panel).getByText("Please order at least 1 day ahead.")).toBeInTheDocument();
+    expect(within(panel).queryByRole("heading", { name: "Pork" })).toBeNull();
+    expect(screen.getByRole("tab", { name: "Pre-order" })).toHaveAttribute("aria-selected", "true");
   });
 
-  it("shows the pre-order lead time and its items", () => {
-    mount();
-    expect(screen.getByText("Please order at least 1 day ahead.")).toBeInTheDocument();
-    expect(screen.getByText("Chicken ala Tumba")).toBeInTheDocument();
-    expect(screen.getByText("whole chicken")).toBeInTheDocument();
-  });
-
-  it("shows the pancit +₱50 note", () => {
-    mount();
-    expect(screen.getByText(/Add ₱50 for sotanghon or canton/)).toBeInTheDocument();
+  it("supports arrow-key navigation between tabs", () => {
+    render(<MenuBoard />);
+    fireEvent.keyDown(screen.getByRole("tab", { name: "Everything" }), { key: "ArrowRight" });
+    expect(screen.getByRole("tab", { name: "Pork" })).toHaveAttribute("aria-selected", "true");
   });
 
   it("links the printed menu photo", () => {
-    mount();
+    render(<MenuBoard />);
     expect(screen.getByRole("link", { name: /printed menu/i })).toHaveAttribute(
       "href",
       "/menu.jpg",
     );
-  });
-
-  it("renders under both menu treatments without error", () => {
-    mount(heritage);
-    expect(screen.getByRole("heading", { name: "Pork" })).toBeInTheDocument();
   });
 });

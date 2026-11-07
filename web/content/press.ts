@@ -10,9 +10,19 @@ export interface TvFeature {
 export interface Vlogger {
   /** Creator / channel name. Omit until the family confirms who made it. */
   name?: string;
+  /** The link people can open on Facebook (share links are fine here). */
   url: string;
+  /**
+   * Optional full video address for the in-page player, e.g.
+   * https://www.facebook.com/<page>/videos/<id> or https://www.facebook.com/reel/<id>.
+   * Only needed if the share link in `url` won't play in the popup — open the
+   * share link in a browser and copy the address bar it lands on.
+   */
+  embedUrl?: string;
+  /** "vertical" (reels, default) or "horizontal" (classic 16:9 videos). */
+  orientation?: "vertical" | "horizontal";
   platform: string;
-  /** Link-out card thumbnail (spec §9.4a). Omit for a text-only card. */
+  /** Card thumbnail. Omit to use one of the family's food photos as the backdrop. */
   poster?: ImageSlot;
 }
 
