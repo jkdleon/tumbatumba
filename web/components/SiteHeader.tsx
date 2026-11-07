@@ -28,8 +28,8 @@ export function SiteHeader() {
   return (
     <header
       className={
-        "sticky top-0 z-40 bg-cream/90 backdrop-blur-md transition-[border-color,box-shadow] " +
-        (scrolled || open ? "border-b-2 border-ink" : "border-b-2 border-transparent")
+        "sticky top-0 z-40 bg-night/90 backdrop-blur-md transition-[border-color,box-shadow] " +
+        (scrolled || open ? "border-b-2 border-fg" : "border-b-2 border-transparent")
       }
     >
       <div className="wrap flex items-center justify-between gap-4 py-3">
@@ -47,7 +47,7 @@ export function SiteHeader() {
             className="pop h-12 w-12 rounded-full motion-safe:transition-transform motion-safe:group-hover:rotate-12"
           />
           <span className="leading-none">
-            <span className="block font-display text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-sage-deep">
+            <span className="block font-display text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-lime">
               Aling Nene&apos;s
             </span>
             <span className="block font-display text-xl font-extrabold tracking-tight">
@@ -60,7 +60,7 @@ export function SiteHeader() {
           <ul
             id="site-nav"
             className={
-              "absolute inset-x-0 top-full flex-col gap-1 border-b-2 border-ink bg-cream p-4 " +
+              "absolute inset-x-0 top-full flex-col gap-1 border-b-2 border-fg bg-night p-4 " +
               "lg:static lg:flex lg:flex-row lg:items-center lg:gap-1 lg:border-0 lg:bg-transparent lg:p-0 " +
               (open ? "flex" : "hidden lg:flex")
             }
@@ -72,7 +72,7 @@ export function SiteHeader() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="block rounded-full px-4 py-3 font-display font-semibold hover:bg-ink hover:text-cream lg:py-2"
+                  className="block rounded-full px-4 py-3 font-display font-semibold hover:bg-fg hover:text-night lg:py-2"
                 >
                   {item.label}
                 </a>
@@ -84,7 +84,7 @@ export function SiteHeader() {
           </span>
           <button
             type="button"
-            className="pop min-h-12 rounded-full bg-butter px-5 font-display font-bold lg:hidden"
+            className="pop min-h-12 rounded-full bg-yellow px-5 font-display font-bold text-on-bright lg:hidden"
             aria-expanded={open}
             aria-controls="site-nav"
             aria-label={open ? "Close menu" : "Open menu"}

@@ -19,11 +19,11 @@ export function OurStory() {
           className="pop-lg mx-auto w-full max-w-sm -rotate-3 rounded-[2rem]"
         />
         <div data-reveal>
-          <p className="font-script text-2xl text-chili">kwento namin</p>
+          <p className="font-script text-2xl text-hot">kwento namin</p>
           <h2 className="font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-7xl">
             Our story
           </h2>
-          <div className="mt-6 space-y-4 text-lg text-ink/85">
+          <div className="mt-6 space-y-4 text-lg text-fg/85">
             {story.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}

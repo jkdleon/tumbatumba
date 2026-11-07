@@ -14,9 +14,9 @@ export function AnnouncementBar() {
   return (
     <aside
       aria-label="Announcements"
-      className="border-b-2 border-ink bg-ink py-2 font-display text-sm font-semibold text-cream"
+      className="border-b-2 border-fg bg-lime py-2 font-display text-sm font-semibold text-on-bright"
     >
-      <Marquee items={items} separator={<span className="text-butter">●</span>} />
+      <Marquee items={items} separator={<span className="text-on-bright">●</span>} />
     </aside>
   );
 }

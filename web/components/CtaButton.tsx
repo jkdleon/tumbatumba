@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes } from "react";
 
-export type CtaVariant = "chili" | "cream" | "ink" | "butter";
+export type CtaVariant = "primary" | "outline" | "invert" | "highlight";
 
 export interface CtaButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: CtaVariant;
@@ -11,18 +11,18 @@ export const CTA_BASE =
   "pop inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 " +
   "font-display text-base font-bold leading-none tracking-tight " +
   "transition-[transform,box-shadow] duration-150 " +
-  "hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-ink)] " +
+  "hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-fg)] " +
   "active:translate-x-1 active:translate-y-1 active:shadow-none";
 
 export const CTA_VARIANTS: Record<CtaVariant, string> = {
-  chili: "bg-chili text-cream",
-  cream: "bg-cream text-ink",
-  ink: "bg-ink text-cream",
-  butter: "bg-butter text-ink",
+  primary: "bg-hot text-on-bright",
+  outline: "bg-night text-fg",
+  invert: "bg-fg text-on-bright",
+  highlight: "bg-yellow text-on-bright",
 };
 
 export function CtaButton({
-  variant = "chili",
+  variant = "primary",
   href,
   className = "",
   children,

@@ -18,7 +18,7 @@ export function LandingPage() {
     <>
       <a
         href="#menu"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-cream"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[60] focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-night"
       >
         Skip to the menu
       </a>

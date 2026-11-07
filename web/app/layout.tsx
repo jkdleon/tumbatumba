@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   icons: { icon: "/logo.jpg", apple: "/logo.jpg" },
 };
 
-export const viewport: Viewport = { themeColor: "#faf6d9" };
+export const viewport: Viewport = { themeColor: "#141110" };
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],

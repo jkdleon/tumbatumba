@@ -25,7 +25,7 @@ export function CopyButton({
         }
       }}
       className={
-        "pop rounded-full bg-butter px-3 py-1 font-display text-xs font-bold text-ink " +
+        "pop rounded-full bg-yellow px-3 py-1 font-display text-xs font-bold text-on-bright " +
         "transition-transform active:translate-x-0.5 active:translate-y-0.5 " +
         className
       }

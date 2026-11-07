@@ -31,7 +31,7 @@ function Stepper({
   onChange: (v: number) => void;
 }) {
   const btn =
-    "pop grid h-9 w-9 place-items-center rounded-full bg-cream font-display text-lg font-bold " +
+    "pop grid h-9 w-9 place-items-center rounded-full bg-night font-display text-lg font-bold " +
     "disabled:opacity-40 active:translate-x-0.5 active:translate-y-0.5";
   return (
     <div className="flex items-center gap-2">
@@ -90,11 +90,11 @@ export function BarkadaPlanner() {
     <section id="planner" className="py-20 sm:py-28">
       <div className="wrap">
         <div data-reveal className="mb-10 max-w-3xl">
-          <p className="font-script text-2xl text-chili">ilan kayo?</p>
+          <p className="font-script text-2xl text-hot">ilan kayo?</p>
           <h2 className="font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-7xl">
             Barkada planner
           </h2>
-          <p className="mt-4 max-w-xl text-ink/80">
+          <p className="mt-4 max-w-xl text-fg/80">
             Tell us the head-count, we&apos;ll size the bilao. Add the crunchy stuff, then send the
             list straight to us — no account, no app.
           </p>
@@ -102,7 +102,7 @@ export function BarkadaPlanner() {
 
         <div className="grid gap-8 lg:grid-cols-[1.25fr_1fr]">
           {/* controls */}
-          <div data-reveal className="pop-lg rounded-[2rem] bg-butter p-6 sm:p-8">
+          <div data-reveal className="pop-lg rounded-[2rem] bg-yellow p-6 text-on-bright sm:p-8">
             <fieldset>
               <legend className="font-display text-lg font-extrabold">How many people?</legend>
               <div className="mt-3 flex items-center gap-5">
@@ -112,7 +112,7 @@ export function BarkadaPlanner() {
                 >
                   {guests}
                 </output>
-                <span className="font-script text-2xl text-chili">
+                <span className="font-script text-2xl text-on-bright">
                   {guests === 1 ? "tao" : "katao"}
                 </span>
               </div>
@@ -136,8 +136,10 @@ export function BarkadaPlanner() {
                     aria-pressed={guests === p.n}
                     onClick={() => setGuests(p.n)}
                     className={
-                      "rounded-full border-2 border-ink px-3 py-1.5 font-display text-sm font-bold transition-colors " +
-                      (guests === p.n ? "bg-ink text-cream" : "bg-cream hover:bg-cream-2")
+                      "rounded-full border-2 border-on-bright px-3 py-1.5 font-display text-sm font-bold transition-colors " +
+                      (guests === p.n
+                        ? "bg-on-bright text-yellow"
+                        : "bg-transparent hover:bg-on-bright/10")
                     }
                   >
                     {p.label} · {p.n}
@@ -146,7 +148,7 @@ export function BarkadaPlanner() {
               </div>
             </fieldset>
 
-            <hr className="my-7 border-t-2 border-dashed border-ink/30" />
+            <hr className="my-7 border-t-2 border-dashed border-on-bright/30" />
 
             <fieldset>
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -156,7 +158,7 @@ export function BarkadaPlanner() {
                     type="checkbox"
                     checked={pancit}
                     onChange={(e) => setPancit(e.target.checked)}
-                    className="h-5 w-5 accent-[var(--color-chili)]"
+                    className="h-5 w-5 accent-[var(--color-hot)]"
                   />
                   Include pancit
                 </label>
@@ -168,9 +170,9 @@ export function BarkadaPlanner() {
                   <label
                     key={n.id}
                     className={
-                      "cursor-pointer rounded-full border-2 border-ink px-3 py-1.5 font-display text-sm font-bold " +
-                      "has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-chili " +
-                      (noodle === n.id ? "bg-chili text-cream" : "bg-cream")
+                      "cursor-pointer rounded-full border-2 border-on-bright px-3 py-1.5 font-display text-sm font-bold " +
+                      "has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-hot " +
+                      (noodle === n.id ? "bg-on-bright text-yellow" : "bg-transparent")
                     }
                   >
                     <input
@@ -189,7 +191,7 @@ export function BarkadaPlanner() {
               </div>
             </fieldset>
 
-            <hr className="my-7 border-t-2 border-dashed border-ink/30" />
+            <hr className="my-7 border-t-2 border-dashed border-on-bright/30" />
 
             <fieldset>
               <legend className="font-display text-lg font-extrabold">Add the crunchy stuff</legend>
@@ -197,11 +199,11 @@ export function BarkadaPlanner() {
                 {ADD_ONS.map((a) => (
                   <li
                     key={a.id}
-                    className="flex items-center justify-between gap-3 rounded-2xl border-2 border-ink bg-cream/70 p-3"
+                    className="flex items-center justify-between gap-3 rounded-2xl border-2 border-on-bright bg-night p-3 text-fg"
                   >
                     <span className="min-w-0">
                       <span className="block text-sm font-semibold leading-tight">{a.label}</span>
-                      <span className="text-sm text-ink/70">{peso(a.price)}</span>
+                      <span className="text-sm text-fg/70">{peso(a.price)}</span>
                     </span>
                     <Stepper
                       label={a.label}
@@ -218,17 +220,17 @@ export function BarkadaPlanner() {
           <aside
             data-reveal
             aria-label="Your order estimate"
-            className="pop-lg relative h-fit rounded-[2rem] bg-cream p-6 sm:p-8 lg:sticky lg:top-24"
+            className="pop-lg relative h-fit rounded-[2rem] bg-night p-6 sm:p-8 lg:sticky lg:top-24"
           >
-            <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-sage-deep">
+            <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-lime">
               Order slip
             </p>
             <h3 className="font-display text-3xl font-extrabold">Good for {guests}</h3>
 
             {plan.lines.length === 0 ? (
-              <p className="mt-6 text-ink/70">Pick at least one item to build your slip.</p>
+              <p className="mt-6 text-fg/70">Pick at least one item to build your slip.</p>
             ) : (
-              <ul className="mt-5 divide-y-2 divide-dashed divide-ink/20 border-y-2 border-dashed border-ink/20">
+              <ul className="mt-5 divide-y-2 divide-dashed divide-fg/20 border-y-2 border-dashed border-fg/20">
                 {plan.lines.map((l) => (
                   <li key={l.label} className="flex justify-between gap-4 py-3 text-sm">
                     <span>
@@ -245,13 +247,13 @@ export function BarkadaPlanner() {
             <div className="mt-5 flex items-end justify-between">
               <span className="font-display text-lg font-bold">Estimated total</span>
               <span
-                className="font-display text-4xl font-extrabold tabular-nums text-chili"
+                className="font-display text-4xl font-extrabold tabular-nums text-hot"
                 aria-live="polite"
               >
                 {peso(plan.total)}
               </span>
             </div>
-            <p className="mt-2 text-xs text-ink/65">
+            <p className="mt-2 text-xs text-fg/65">
               Estimate only — we confirm the final price when you order. Chicken ala Tumba and
               cheese sticks need 1 day&apos;s notice.
             </p>
@@ -262,29 +264,26 @@ export function BarkadaPlanner() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={copy}
-                className={`${CTA_BASE} ${CTA_VARIANTS.chili} w-full`}
+                className={`${CTA_BASE} ${CTA_VARIANTS.primary} w-full`}
               >
                 Copy slip &amp; open Messenger
               </a>
               <div className="grid grid-cols-2 gap-3">
                 <a
                   href={smsHref}
-                  className={`${CTA_BASE} ${CTA_VARIANTS.cream} w-full px-3 text-sm`}
+                  className={`${CTA_BASE} ${CTA_VARIANTS.outline} w-full px-3 text-sm`}
                 >
                   Text it
                 </a>
                 <a
                   href={restaurant.phone.landlineHref}
-                  className={`${CTA_BASE} ${CTA_VARIANTS.ink} w-full px-3 text-sm`}
+                  className={`${CTA_BASE} ${CTA_VARIANTS.invert} w-full px-3 text-sm`}
                 >
                   Call instead
                 </a>
               </div>
             </div>
-            <p
-              role="status"
-              className="mt-3 min-h-5 text-center text-sm font-semibold text-sage-deep"
-            >
+            <p role="status" className="mt-3 min-h-5 text-center text-sm font-semibold text-lime">
               {copied ? "Slip copied — paste it in the chat ✓" : ""}
             </p>
           </aside>

@@ -38,7 +38,7 @@ export function VisitOrder() {
         <span className="flex flex-wrap items-center gap-2">
           <span>
             <span className="font-bold tabular-nums">{gcash.number}</span>{" "}
-            <span className="text-ink/70">({gcash.name})</span>
+            <span className="text-fg/70">({gcash.name})</span>
           </span>
           <CopyButton value={gcash.number.replace(/\s/g, "")} label="GCash number" />
         </span>
@@ -48,10 +48,10 @@ export function VisitOrder() {
   ];
 
   return (
-    <section id="visit" className="bg-sage py-20 sm:py-28">
+    <section id="visit" className="bg-lime py-20 text-on-bright sm:py-28">
       <div className="wrap">
         <div data-reveal className="mb-10">
-          <p className="font-script text-2xl text-ink">tara, kain!</p>
+          <p className="font-script text-2xl">tara, kain!</p>
           <h2 className="font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-7xl">
             Order in 3 steps
           </h2>
@@ -64,14 +64,14 @@ export function VisitOrder() {
                 key={s.n}
                 data-reveal
                 style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
-                className="pop flex gap-5 rounded-[1.75rem] bg-cream p-5 sm:p-6"
+                className="pop flex gap-5 rounded-[1.75rem] bg-night p-5 text-fg sm:p-6"
               >
-                <span className="pop grid h-14 w-14 shrink-0 place-items-center rounded-full bg-chili font-display text-2xl font-extrabold text-cream">
+                <span className="pop grid h-14 w-14 shrink-0 place-items-center rounded-full bg-hot font-display text-2xl font-extrabold text-on-bright">
                   {s.n}
                 </span>
                 <div className="min-w-0">
                   <h3 className="font-display text-2xl font-extrabold leading-tight">{s.title}</h3>
-                  <div className="mt-1 text-ink/85">{s.body}</div>
+                  <div className="mt-1 text-fg/85">{s.body}</div>
                 </div>
               </li>
             ))}
@@ -81,7 +81,7 @@ export function VisitOrder() {
                 href={socials.messenger}
                 target="_blank"
                 rel="noopener noreferrer"
-                variant="cream"
+                variant="outline"
               >
                 Message on Facebook
               </CtaButton>
@@ -90,22 +90,22 @@ export function VisitOrder() {
 
           <div
             data-reveal
-            className="pop-lg flex flex-col gap-5 rounded-[2rem] bg-ink p-7 text-cream"
+            className="pop-lg flex flex-col gap-5 rounded-[2rem] bg-night p-7 text-fg"
           >
             <OpenNowBadge hours={hours} className="w-fit" />
             <div>
-              <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-butter">
+              <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-yellow">
                 Find us
               </p>
               <address className="mt-2 font-display text-3xl font-extrabold not-italic leading-tight">
                 {address.street}
-                <span className="block text-xl font-semibold text-cream/80">
+                <span className="block text-xl font-semibold text-fg/80">
                   {address.locality}, {address.region}
                 </span>
               </address>
             </div>
             <div>
-              <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-butter">
+              <p className="font-display text-xs font-bold uppercase tracking-[0.25em] text-yellow">
                 Hours
               </p>
               <p className="mt-2 text-lg">
@@ -117,7 +117,7 @@ export function VisitOrder() {
                 href={restaurant.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                variant="butter"
+                variant="highlight"
                 className="w-full"
               >
                 Open in Google Maps ↗

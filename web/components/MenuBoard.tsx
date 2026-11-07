@@ -5,11 +5,11 @@ import { menuGroups, printedMenuHref } from "@/content/menu";
 
 const ALL = "all";
 const TONES: Record<string, string> = {
-  pork: "bg-peach",
+  pork: "bg-orange",
   "must-try": "bg-pink",
-  pancit: "bg-sage",
-  "pre-order": "bg-butter",
-  extras: "bg-cream-2",
+  pancit: "bg-lime",
+  "pre-order": "bg-yellow",
+  extras: "bg-night-2",
 };
 
 export function MenuBoard() {
@@ -31,18 +31,18 @@ export function MenuBoard() {
   };
 
   return (
-    <section id="menu" className="border-y-2 border-ink bg-cream-2 py-20 sm:py-28">
+    <section id="menu" className="border-y-2 border-fg bg-night-2 py-20 sm:py-28">
       <div className="wrap">
         <div data-reveal className="mb-8 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="font-script text-2xl text-chili">ang menu</p>
+            <p className="font-script text-2xl text-hot">ang menu</p>
             <h2 className="font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-7xl">
               The whole spread
             </h2>
           </div>
           <a
             href={printedMenuHref}
-            className="font-display font-bold underline decoration-2 underline-offset-4 hover:text-chili"
+            className="font-display font-bold underline decoration-2 underline-offset-4 hover:text-hot"
           >
             See the printed menu ↗
           </a>
@@ -67,10 +67,10 @@ export function MenuBoard() {
               onClick={() => setActive(t.id)}
               onKeyDown={(e) => onKey(e, i)}
               className={
-                "shrink-0 rounded-full border-2 border-ink px-5 py-2.5 font-display font-bold transition-all " +
+                "shrink-0 rounded-full border-2 border-fg px-5 py-2.5 font-display font-bold transition-all " +
                 (active === t.id
-                  ? "bg-ink text-cream shadow-[3px_3px_0_0_var(--color-chili)]"
-                  : "bg-cream hover:-translate-y-0.5")
+                  ? "bg-fg text-night shadow-[3px_3px_0_0_var(--color-hot)]"
+                  : "bg-night hover:-translate-y-0.5")
               }
             >
               {t.label}
@@ -87,15 +87,15 @@ export function MenuBoard() {
           {shown.map((group) => (
             <div
               key={group.id}
-              className={`pop rounded-[1.75rem] bg-cream p-6 ${group.wide && active === ALL ? "md:col-span-2" : ""}`}
+              className={`pop rounded-[1.75rem] bg-night p-6 ${group.wide && active === ALL ? "md:col-span-2" : ""}`}
             >
               <div className="flex flex-wrap items-center gap-3">
                 <h3
-                  className={`pop rounded-full px-4 py-1 font-display text-xl font-extrabold ${TONES[group.id] ?? "bg-cream-2"}`}
+                  className={`pop rounded-full px-4 py-1 font-display text-xl font-extrabold text-on-bright ${TONES[group.id] ?? "bg-night-2"}`}
                 >
                   {group.label}
                 </h3>
-                {group.note && <p className="text-sm italic text-ink/75">{group.note}</p>}
+                {group.note && <p className="text-sm italic text-fg/75">{group.note}</p>}
               </div>
               <dl
                 className={`mt-4 grid gap-x-10 ${group.wide && active === ALL ? "md:grid-cols-2" : ""}`}
@@ -103,19 +103,19 @@ export function MenuBoard() {
                 {group.items.map((item, i) => (
                   <div
                     key={`${item.name}-${i}`}
-                    className="flex items-baseline gap-3 border-b-2 border-dashed border-ink/15 py-3 last:border-0"
+                    className="flex items-baseline gap-3 border-b-2 border-dashed border-fg/15 py-3 last:border-0"
                   >
                     <dt className="font-semibold">
                       {item.name}
                       {item.qualifier && (
-                        <span className="ml-2 text-sm font-normal text-ink/65">
+                        <span className="ml-2 text-sm font-normal text-fg/65">
                           {item.qualifier}
                         </span>
                       )}
                     </dt>
                     <span aria-hidden="true" className="flex-1" />
                     <dd className="whitespace-nowrap font-display text-lg font-extrabold tabular-nums">
-                      <span className="text-sm text-ink/60">₱</span>
+                      <span className="text-sm text-fg/60">₱</span>
                       {item.price}
                     </dd>
                   </div>
@@ -124,7 +124,7 @@ export function MenuBoard() {
             </div>
           ))}
         </div>
-        <p className="mt-6 text-sm text-ink/70">
+        <p className="mt-6 text-sm text-fg/70">
           Prices in pesos. Bilao and platters are made to order — please call ahead so it&apos;s hot
           when you arrive.
         </p>

@@ -23,8 +23,8 @@ export function StickyOrderBar() {
   return (
     <div
       className={[
-        "fixed inset-x-3 bottom-3 z-50 flex gap-2 rounded-full border-2 border-ink bg-cream p-1.5",
-        "shadow-[4px_4px_0_0_var(--color-ink)] md:inset-x-auto md:right-6 md:bottom-6",
+        "fixed inset-x-3 bottom-3 z-50 flex gap-2 rounded-full border-2 border-fg bg-night p-1.5",
+        "shadow-[4px_4px_0_0_var(--color-fg)] md:inset-x-auto md:right-6 md:bottom-6",
         "motion-safe:transition-[transform,opacity] motion-safe:duration-300",
         // Desktop: hidden until the hero scrolls away (and out of the tab order).
         // Mobile: always present.
@@ -33,7 +33,7 @@ export function StickyOrderBar() {
     >
       <a
         href={restaurant.phone.landlineHref}
-        className="flex flex-1 items-center justify-center rounded-full bg-chili px-5 py-3 text-center font-display font-bold text-cream hover:bg-chili-hot"
+        className="flex flex-1 items-center justify-center rounded-full bg-hot px-5 py-3 text-center font-display font-bold text-on-bright hover:bg-hot-2"
       >
         <span className="sm:hidden">Call to order</span>
         <span className="hidden sm:inline">Call to order — {restaurant.phone.landlineDisplay}</span>
@@ -43,7 +43,7 @@ export function StickyOrderBar() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Message on Facebook"
-        className="flex items-center justify-center rounded-full bg-ink px-5 py-3 font-display font-bold text-cream hover:bg-ink/85"
+        className="flex items-center justify-center rounded-full bg-fg px-5 py-3 font-display font-bold text-night hover:bg-fg/85"
       >
         Message
       </a>

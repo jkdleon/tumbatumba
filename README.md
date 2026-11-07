@@ -4,14 +4,15 @@ The site for the restaurant at 823 General Kalentong Street, Mandaluyong City.
 A static **Next.js** app (App Router, `output: 'export'` — no server runtime),
 deployed on **Vercel** from this repo.
 
-One marketing landing page at `/`, designed around the logo: cream ground, sage,
-peach, butter and the pig's red bandana, chunky Bricolage Grotesque headlines with
+One marketing landing page at `/` in a dark "Midnight Chili" palette (near-black
+ground, chili red, acid lime, mango yellow, pink), chunky Bricolage Grotesque headlines with
 Shrikhand script accents, sticker-style cards, marquee tickers and scroll reveals
 (all motion respects `prefers-reduced-motion`). Sections: announcement ticker,
 hero, bestsellers bento, "how the crunch happens", tabbed menu, **Barkada
 planner** (head-count → bilao size + estimate, sent by Messenger/SMS/call — not a
 cart), vlog reels, order-in-3-steps / visit. Palette tokens live in
-`web/app/globals.css` (`@theme`).
+`web/app/globals.css` (`@theme`) and are named by role (`night`, `fg`,
+`on-bright`, `hot`, `lime` …) — read the comment there before adding colours.
 
 Unconfirmed content (Our Story, TV feature, Facebook rating) is **hidden** from
 customers until its `confirmed` flag in `web/content/` is flipped — no placeholder

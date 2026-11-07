@@ -3,10 +3,10 @@ import { dishes, type Dish } from "@/content/dishes";
 import { restaurant } from "@/content/restaurant";
 
 const LAYOUT: Record<string, { span: string; tile: string }> = {
-  pata: { span: "sm:col-span-2 lg:row-span-2", tile: "bg-peach" },
+  pata: { span: "sm:col-span-2 lg:row-span-2", tile: "bg-orange" },
   ulo: { span: "sm:col-span-2", tile: "bg-pink" },
-  sisig: { span: "", tile: "bg-chili text-cream" },
-  pancit: { span: "", tile: "bg-sage" },
+  sisig: { span: "", tile: "bg-hot text-on-bright" },
+  pancit: { span: "", tile: "bg-lime text-on-bright" },
 };
 
 function OrderLink({ dish, light }: { dish: Dish; light?: boolean }) {
@@ -17,7 +17,7 @@ function OrderLink({ dish, light }: { dish: Dish; light?: boolean }) {
       className={
         "pop inline-flex min-h-11 items-center gap-2 rounded-full px-4 font-display text-sm font-bold " +
         "transition-transform hover:-translate-y-0.5 " +
-        (light ? "bg-cream text-ink" : "bg-ink text-cream")
+        (light ? "bg-night text-fg" : "bg-fg text-night")
       }
     >
       Order this <span aria-hidden="true">→</span>
@@ -43,19 +43,19 @@ function PhotoCard({ dish }: { dish: Dish }) {
           sizes={big ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 640px) 50vw, 100vw"}
           className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
         />
-        <span className="pop absolute left-4 top-4 -rotate-3 rounded-full bg-butter px-3 py-1 font-display text-xs font-bold uppercase tracking-wider">
+        <span className="pop absolute left-4 top-4 -rotate-3 rounded-full bg-yellow px-3 py-1 font-display text-xs font-bold uppercase tracking-wider text-on-bright">
           {dish.tag}
         </span>
       </div>
-      <div className="flex flex-wrap items-end justify-between gap-3 border-t-2 border-ink bg-cream p-5">
+      <div className="flex flex-wrap items-end justify-between gap-3 border-t-2 border-fg bg-night p-5">
         <div className="min-w-0 flex-1">
           <h3
             className={`font-display font-extrabold leading-none tracking-tight ${big ? "text-4xl" : "text-3xl"}`}
           >
             {dish.name}
           </h3>
-          <p className="mt-2 max-w-md text-sm text-ink/80">{dish.blurb}</p>
-          <p className="mt-2 font-display text-lg font-extrabold text-chili">{dish.price}</p>
+          <p className="mt-2 max-w-md text-sm text-fg/80">{dish.blurb}</p>
+          <p className="mt-2 font-display text-lg font-extrabold text-hot">{dish.price}</p>
         </div>
         <OrderLink dish={dish} />
       </div>
@@ -79,7 +79,7 @@ function TypeCard({ dish }: { dish: Dish }) {
       {dish.id === "pancit" && (
         <div
           aria-hidden="true"
-          className="weave absolute -bottom-16 -right-16 h-56 w-56 rounded-full border-[6px] border-ink/70 bg-butter motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:rotate-45"
+          className="weave absolute -bottom-16 -right-16 h-56 w-56 rounded-full border-[6px] border-on-bright/70 bg-yellow motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:rotate-45"
         />
       )}
       {dish.id === "sisig" && (
@@ -87,14 +87,14 @@ function TypeCard({ dish }: { dish: Dish }) {
           {[0, 1, 2].map((i) => (
             <span
               key={i}
-              className="block h-10 w-1.5 rounded-full bg-butter motion-safe:animate-float"
+              className="block h-10 w-1.5 rounded-full bg-yellow motion-safe:animate-float"
               style={{ animationDelay: `${i * 300}ms` }}
             />
           ))}
         </div>
       )}
       <span
-        className={`pop relative w-fit -rotate-3 rounded-full px-3 py-1 font-display text-xs font-bold uppercase tracking-wider ${dark ? "bg-butter text-ink" : "bg-cream"}`}
+        className={`pop relative w-fit -rotate-3 rounded-full px-3 py-1 font-display text-xs font-bold uppercase tracking-wider ${dark ? "bg-yellow text-on-bright" : "bg-night text-fg"}`}
       >
         {dish.tag}
       </span>
@@ -102,7 +102,7 @@ function TypeCard({ dish }: { dish: Dish }) {
         <h3 className="font-display text-4xl font-extrabold uppercase leading-[0.9] tracking-tight">
           {dish.name}
         </h3>
-        <p className={`mt-3 text-sm ${dark ? "text-cream/90" : "text-ink/80"}`}>{dish.blurb}</p>
+        <p className={"mt-3 text-sm text-on-bright/85"}>{dish.blurb}</p>
         <p className="mt-3 font-display text-xl font-extrabold">{dish.price}</p>
         <div className="mt-4">
           <OrderLink dish={dish} light={dark} />
@@ -118,12 +118,12 @@ export function SignatureDishes() {
       <div className="wrap">
         <div data-reveal className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="font-script text-2xl text-chili">ang mga bida</p>
+            <p className="font-script text-2xl text-hot">ang mga bida</p>
             <h2 className="font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-7xl">
               Main characters
             </h2>
           </div>
-          <p className="max-w-sm text-ink/80">
+          <p className="max-w-sm text-fg/80">
             The ones people come back for. Bilao and platters are made to order — call ahead so
             it&apos;s hot when you arrive.
           </p>

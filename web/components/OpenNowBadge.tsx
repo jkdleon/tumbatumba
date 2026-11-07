@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { formatHours, openNow, type Hours, type OpenNowResult } from "@/lib/openNow";
 
 const PILL =
-  "pop inline-flex items-center gap-2 rounded-full bg-cream px-4 py-1.5 font-display text-sm font-bold text-ink ";
+  "pop inline-flex items-center gap-2 rounded-full bg-night px-4 py-1.5 font-display text-sm font-bold text-fg ";
 
 export function OpenNowBadge({ hours, className = "" }: { hours: Hours; className?: string }) {
   // Stable, time-independent first paint (no hydration mismatch, no false
@@ -23,11 +23,11 @@ export function OpenNowBadge({ hours, className = "" }: { hours: Hours; classNam
     <span data-open={open} aria-busy={state ? undefined : true} className={PILL + className}>
       <span aria-hidden="true" className="relative flex h-2.5 w-2.5">
         {open && (
-          <span className="absolute inline-flex h-full w-full rounded-full bg-sage-deep opacity-60 motion-safe:animate-ping" />
+          <span className="absolute inline-flex h-full w-full rounded-full bg-lime opacity-60 motion-safe:animate-ping" />
         )}
         <span
           className={
-            "relative inline-flex h-2.5 w-2.5 rounded-full " + (open ? "bg-sage-deep" : "bg-chili")
+            "relative inline-flex h-2.5 w-2.5 rounded-full " + (open ? "bg-lime" : "bg-hot")
           }
         />
       </span>
