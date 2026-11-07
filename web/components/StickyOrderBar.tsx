@@ -23,27 +23,29 @@ export function StickyOrderBar() {
   return (
     <div
       className={[
-        "fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t border-ink-invert/15 bg-ink/95 p-3",
-        "backdrop-blur translate-y-0",
-        "motion-safe:transition-transform motion-safe:duration-[var(--t-motion-slide)]",
-        // Desktop-only: when hidden below the fold, drop it from the tab order and
-        // AT tree too. `md:invisible` scopes this to >=md; mobile (base, no `md:`)
-        // stays visible and interactive since the bar never leaves the screen there.
-        revealed ? "md:translate-y-0" : "md:translate-y-full md:invisible md:pointer-events-none",
+        "fixed inset-x-3 bottom-3 z-50 flex gap-2 rounded-full border-2 border-ink bg-cream p-1.5",
+        "shadow-[4px_4px_0_0_var(--color-ink)] md:inset-x-auto md:right-6 md:bottom-6",
+        "motion-safe:transition-[transform,opacity] motion-safe:duration-300",
+        // Desktop: hidden until the hero scrolls away (and out of the tab order).
+        // Mobile: always present.
+        revealed ? "md:translate-y-0" : "md:pointer-events-none md:invisible md:translate-y-[150%]",
       ].join(" ")}
     >
       <a
         href={restaurant.phone.landlineHref}
-        className="flex-1 rounded-theme bg-accent px-4 py-3 text-center font-semibold text-ink-invert hover:bg-accent-strong"
+        className="flex flex-1 items-center justify-center rounded-full bg-chili px-5 py-3 text-center font-display font-bold text-cream hover:bg-chili-hot"
       >
-        Call to order — {restaurant.phone.landlineDisplay}
+        <span className="sm:hidden">Call to order</span>
+        <span className="hidden sm:inline">Call to order — {restaurant.phone.landlineDisplay}</span>
       </a>
       <a
         href={restaurant.socials.messenger}
-        rel="noopener"
-        className="rounded-theme border border-current px-4 py-3 text-center font-semibold text-ink-invert hover:text-accent-strong"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Message on Facebook"
+        className="flex items-center justify-center rounded-full bg-ink px-5 py-3 font-display font-bold text-cream hover:bg-ink/85"
       >
-        Message on Facebook
+        Message
       </a>
     </div>
   );

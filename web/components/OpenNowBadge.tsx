@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 import { formatHours, openNow, type Hours, type OpenNowResult } from "@/lib/openNow";
 
 const PILL =
-  "inline-flex items-center gap-2 rounded-full border border-current px-3 py-1 text-sm font-medium ";
+  "pop inline-flex items-center gap-2 rounded-full bg-cream px-4 py-1.5 font-display text-sm font-bold text-ink ";
 
 export function OpenNowBadge({ hours, className = "" }: { hours: Hours; className?: string }) {
-  // Start from a stable, time-independent value so SSR / first client paint
-  // never bake in a clock-specific label (hydration mismatch + false "Open now"
-  // for crawlers/no-JS overnight). The effect below fills in the real label on
-  // mount, synchronously in tests.
+  // Stable, time-independent first paint (no hydration mismatch, no false
+  // "Open now" baked into the static HTML). The effect fills in the live label.
   const [state, setState] = useState<OpenNowResult | null>(null);
 
   useEffect(() => {
@@ -20,24 +18,20 @@ export function OpenNowBadge({ hours, className = "" }: { hours: Hours; classNam
     return () => clearInterval(id);
   }, [hours]);
 
-  if (!state) {
-    return (
-      <span data-open={false} aria-busy="true" className={PILL + className}>
-        <span aria-hidden="true" className="h-2 w-2 rounded-full bg-ink/40" />
-        {formatHours(hours)}
-      </span>
-    );
-  }
-
+  const open = state?.open ?? false;
   return (
-    <span data-open={state.open} className={PILL + className}>
-      <span
-        aria-hidden="true"
-        className={
-          "h-2 w-2 rounded-full " + (state.open ? "bg-sage motion-safe:animate-pulse" : "bg-ink/40")
-        }
-      />
-      {state.label}
+    <span data-open={open} aria-busy={state ? undefined : true} className={PILL + className}>
+      <span aria-hidden="true" className="relative flex h-2.5 w-2.5">
+        {open && (
+          <span className="absolute inline-flex h-full w-full rounded-full bg-sage-deep opacity-60 motion-safe:animate-ping" />
+        )}
+        <span
+          className={
+            "relative inline-flex h-2.5 w-2.5 rounded-full " + (open ? "bg-sage-deep" : "bg-chili")
+          }
+        />
+      </span>
+      {state ? state.label : `Daily ${formatHours(hours)}`}
     </span>
   );
 }

@@ -12,8 +12,8 @@ describe("robots", () => {
 });
 
 describe("sitemap", () => {
-  it("lists both directions while previewing", () => {
+  it("lists the single landing page", () => {
     const urls = sitemap().map((e) => e.url);
-    expect(urls).toEqual([`${siteUrl}/`, `${siteUrl}/heritage`]);
+    expect(urls).toEqual([`${siteUrl}/`]);
   });
 });
